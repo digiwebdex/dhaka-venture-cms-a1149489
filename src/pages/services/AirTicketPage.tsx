@@ -40,7 +40,7 @@ const AirTicketPage = () => {
               <CardContent className="p-5 text-center">
                 <h3 className="font-bold text-lg mb-3">{lang === "bn" ? dest.nameBn : dest.name}</h3>
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-gold-gradient hover:opacity-90 font-semibold">{t.nav.bookNow}</Button>
+                  <Button variant="gold">{t.nav.bookNow}</Button>
                 </a>
               </CardContent>
             </Card>

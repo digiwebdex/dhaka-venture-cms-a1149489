@@ -34,7 +34,7 @@ const HajjUmrahPage = () => {
                 <p className="text-sm text-muted-foreground mb-3">{lang === "bn" ? pkg.descriptionBn : pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-extrabold text-primary">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><Button size="sm" className="bg-gold-gradient text-secondary-foreground">{t.nav.bookNow}</Button></a>
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer"><Button size="sm" variant="gold">{t.nav.bookNow}</Button></a>
                 </div>
               </CardContent>
             </Card>

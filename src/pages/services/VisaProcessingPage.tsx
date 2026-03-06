@@ -43,7 +43,7 @@ const VisaProcessingPage = () => {
         </Card>
         <div className="text-center mt-8">
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold h-14 px-8">
+            <Button size="lg" variant="gold" className="h-14 px-8">
               {t.nav.bookNow}
             </Button>
           </a>
