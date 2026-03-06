@@ -134,7 +134,7 @@ const Header = () => {
               ))}
 
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Button className="bg-gold-gradient text-secondary-foreground hover:opacity-90 ml-2 font-semibold">
+                <Button variant="gold" className="ml-2">
                   {t.nav.bookNow}
                 </Button>
               </a>
@@ -180,7 +180,7 @@ const Header = () => {
                 ))}
               </div>
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
-                <Button className="w-full bg-gold-gradient text-secondary-foreground font-semibold mt-2">
+                <Button variant="gold" className="w-full mt-2">
                   {t.nav.bookNow}
                 </Button>
               </a>

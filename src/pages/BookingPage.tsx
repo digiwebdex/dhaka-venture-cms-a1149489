@@ -79,7 +79,7 @@ const BookingPage = () => {
                     <Input type="date" placeholder={t.booking.travelDate} value={form.travelDate} onChange={(e) => setForm({ ...form, travelDate: e.target.value })} />
                   </div>
                   <Textarea placeholder={t.booking.notes} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={3} />
-                  <Button type="submit" className="w-full bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold h-12 text-lg">
+                  <Button type="submit" variant="gold" className="w-full h-12 text-lg">
                     {t.booking.submitBooking}
                   </Button>
                 </form>

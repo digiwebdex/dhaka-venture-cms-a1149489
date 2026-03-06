@@ -89,7 +89,7 @@ const PackagesSection = () => {
                       <span className="text-xl font-extrabold text-gold">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
                     </div>
                     <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-semibold rounded-full px-5">
+                      <Button size="sm" variant="gold" className="rounded-full px-5">
                         {t.nav.bookNow}
                       </Button>
                     </a>
