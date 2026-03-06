@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logoImg from "@/assets/logo_prime.png";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Button } from "@/components/ui/button";
@@ -67,12 +68,14 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <img src="/logo_prime.png" alt="Prime Sky International" className="h-10 w-auto" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-1.5 border border-white/20">
+                <img src={logoImg} alt="Prime Sky International" className="h-12 w-auto brightness-150 contrast-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" />
+              </div>
               <div className="hidden sm:block">
-                <h1 className="text-primary-foreground font-bold text-lg leading-tight">
+                <h1 className="text-primary-foreground font-bold text-lg leading-tight drop-shadow-sm">
                   {lang === "bn" ? settings.companyNameBn : settings.companyName}
                 </h1>
-                <p className="text-gold text-xs">{lang === "bn" ? settings.sloganBn : settings.slogan}</p>
+                <p className="text-gold text-xs font-medium">{lang === "bn" ? settings.sloganBn : settings.slogan}</p>
               </div>
             </Link>
 
