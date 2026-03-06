@@ -133,7 +133,7 @@ const HeroSection = () => {
                   </Button>
                 </a>
                 <Link to={slide.link}>
-                  <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-base px-8 h-13 rounded-full">
+                  <Button size="lg" variant="gold" className="font-semibold text-base px-8 h-13 rounded-full">
                     {lang === "bn" ? slide.cta2.bn : slide.cta2.en}
                   </Button>
                 </Link>
