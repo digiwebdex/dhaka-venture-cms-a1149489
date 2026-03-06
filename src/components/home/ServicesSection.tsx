@@ -16,10 +16,10 @@ const ServicesSection = () => {
   const { t, lang } = useLang();
 
   const services = [
-    { icon: Star, ...t.services.hajj, link: "/services/hajj-umrah", img: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=400&q=80", gradient: "from-gold/20 to-gold/5" },
-    { icon: MapPin, ...t.services.tour, link: "/services/tour-packages", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80", gradient: "from-sky/20 to-sky/5" },
-    { icon: Plane, ...t.services.air, link: "/services/air-ticket", img: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&q=80", gradient: "from-primary/20 to-primary/5" },
-    { icon: Hotel, ...t.services.hotel, link: "/services/hotel-booking", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80", gradient: "from-success/20 to-success/5" },
+    { icon: Star, ...t.services.hajj, link: "/services/hajj-umrah", img: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg", gradient: "from-gold/20 to-gold/5" },
+    { icon: MapPin, ...t.services.tour, link: "/services/tour-packages", img: "https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_1280.jpg", gradient: "from-sky/20 to-sky/5" },
+    { icon: Plane, ...t.services.air, link: "/services/air-ticket", img: "https://cdn.pixabay.com/photo/2016/11/18/13/23/action-1834465_1280.jpg", gradient: "from-primary/20 to-primary/5" },
+    { icon: Hotel, ...t.services.hotel, link: "/services/hotel-booking", img: "https://cdn.pixabay.com/photo/2016/11/17/09/28/hotel-1831072_1280.jpg", gradient: "from-success/20 to-success/5" },
   ];
 
   return (
