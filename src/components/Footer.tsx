@@ -15,10 +15,6 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img src="/logo_prime.png" alt="Logo" className="h-12 w-auto" />
-              <div>
-                <h3 className="font-bold text-lg">{lang === "bn" ? settings.companyNameBn : settings.companyName}</h3>
-                <p className="text-gold text-sm">{lang === "bn" ? settings.sloganBn : settings.slogan}</p>
-              </div>
             </div>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               {lang === "bn"
