@@ -68,7 +68,7 @@ const UmrahOfferSection = () => {
             </div>
 
             <Link to="/services/hajj-umrah">
-              <Button size="lg" className="bg-gold-gradient hover:opacity-90 font-bold text-base px-8 h-13 rounded-full shadow-xl shadow-gold/20 mt-2">
+              <Button size="lg" variant="gold" className="font-bold text-base px-8 h-13 rounded-full shadow-xl shadow-gold/20 mt-2">
                 {lang === "bn" ? "বিস্তারিত দেখুন" : "View Details"}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
