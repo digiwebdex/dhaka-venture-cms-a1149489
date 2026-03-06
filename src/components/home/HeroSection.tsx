@@ -5,10 +5,11 @@ import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ArrowRight, Compass, ChevronLeft, ChevronRight, Users } from "lucide-react";
+import { images } from "@/assets/images";
 
 const heroSlides = [
   {
-    image: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg",
+    image: images.kaaba,
     titleEn: "Find the Best Umrah Packages from Bangladesh",
     titleBn: "বাংলাদেশ থেকে সেরা উমরাহ প্যাকেজ খুঁজুন",
     highlightEn: "Umrah Packages",
@@ -21,7 +22,7 @@ const heroSlides = [
     cta2: { en: "View Hajj Packages", bn: "হজ্জ প্যাকেজ দেখুন" },
   },
   {
-    image: "https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_1280.jpg",
+    image: images.beach,
     titleEn: "Explore Beautiful Destinations Worldwide",
     titleBn: "বিশ্বজুড়ে সুন্দর গন্তব্য অন্বেষণ করুন",
     highlightEn: "Beautiful Destinations",
@@ -34,7 +35,7 @@ const heroSlides = [
     cta2: { en: "View Packages", bn: "প্যাকেজ দেখুন" },
   },
   {
-    image: "https://cdn.pixabay.com/photo/2016/11/18/13/23/action-1834465_1280.jpg",
+    image: images.airplane,
     titleEn: "Fly With the Best Fare Guaranteed",
     titleBn: "সেরা ভাড়ার নিশ্চয়তায় উড়ুন",
     highlightEn: "Best Fare",
@@ -47,7 +48,7 @@ const heroSlides = [
     cta2: { en: "View Offers", bn: "অফার দেখুন" },
   },
   {
-    image: "https://cdn.pixabay.com/photo/2016/11/17/09/28/hotel-1831072_1280.jpg",
+    image: images.hotel,
     titleEn: "World-Class Hotel Booking Service",
     titleBn: "বিশ্বমানের হোটেল বুকিং সেবা",
     highlightEn: "Hotel Booking",
@@ -86,7 +87,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] bg-navy-gradient overflow-hidden">
-      {/* Decorative blurs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-gold/5 blur-[120px]" />
         <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-sky/5 blur-[120px]" />
@@ -94,7 +94,6 @@ const HeroSection = () => {
 
       <div className="relative z-10 container mx-auto px-4 h-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[90vh] py-20">
-          {/* Left: Text Content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -104,7 +103,6 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
               className="space-y-6"
             >
-              {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-gold/10 backdrop-blur-sm border border-gold/20 text-gold px-4 py-2 rounded-full">
                 <Star className="w-4 h-4 fill-gold" />
                 <span className="text-sm font-semibold tracking-wide">
@@ -112,7 +110,6 @@ const HeroSection = () => {
                 </span>
               </div>
 
-              {/* Title */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1]">
                 <span className="text-primary-foreground">
                   {lang === "bn"
@@ -124,15 +121,13 @@ const HeroSection = () => {
                 </span>
               </h1>
 
-              {/* Subtitle */}
               <p className="text-primary-foreground/60 text-base md:text-lg max-w-xl leading-relaxed">
                 {lang === "bn" ? slide.subtitleBn : slide.subtitleEn}
               </p>
 
-              {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold text-base px-8 h-13 shadow-xl shadow-gold/20 rounded-full">
+                  <Button size="lg" className="bg-gold-gradient hover:opacity-90 font-bold text-base px-8 h-13 shadow-xl shadow-gold/20 rounded-full">
                     {lang === "bn" ? slide.cta1.bn : slide.cta1.en}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
@@ -144,7 +139,6 @@ const HeroSection = () => {
                 </Link>
               </div>
 
-              {/* Social links hint */}
               <div className="flex items-center gap-3 pt-4">
                 <span className="text-primary-foreground/40 text-sm">
                   {lang === "bn" ? "আমাদের অনুসরণ করুন:" : "Follow us:"}
@@ -158,7 +152,6 @@ const HeroSection = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Right: Image with decorative border */}
           <div className="relative hidden lg:block">
             <AnimatePresence mode="wait">
               <motion.div
@@ -169,9 +162,7 @@ const HeroSection = () => {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                {/* Ornamental frame */}
                 <div className="relative rounded-2xl overflow-hidden border-4 border-gold/30 shadow-2xl shadow-gold/10">
-                  {/* Inner gold corners decoration */}
                   <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-gold/60 rounded-tl-xl z-20" />
                   <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-gold/60 rounded-tr-xl z-20" />
                   <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-gold/60 rounded-bl-xl z-20" />
@@ -186,7 +177,6 @@ const HeroSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/40 via-transparent to-transparent" />
                 </div>
 
-                {/* Floating stats card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -210,7 +200,6 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Slider controls at bottom */}
         <div className="absolute bottom-8 left-0 right-0 z-20">
           <div className="container mx-auto px-4 flex items-center justify-between">
             <div className="flex gap-2">
@@ -225,10 +214,10 @@ const HeroSection = () => {
               ))}
             </div>
             <div className="flex gap-2">
-              <button onClick={prevSlide} className="w-10 h-10 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center text-primary-foreground/70 hover:bg-gold hover:text-secondary-foreground hover:border-gold transition-all">
+              <button onClick={prevSlide} className="w-10 h-10 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center text-primary-foreground/70 hover:bg-gold hover:border-gold transition-all">
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <button onClick={nextSlide} className="w-10 h-10 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center text-primary-foreground/70 hover:bg-gold hover:text-secondary-foreground hover:border-gold transition-all">
+              <button onClick={nextSlide} className="w-10 h-10 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center text-primary-foreground/70 hover:bg-gold hover:border-gold transition-all">
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
