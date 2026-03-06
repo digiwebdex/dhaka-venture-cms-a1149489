@@ -74,6 +74,26 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
 
 export const useCms = () => {
   const ctx = useContext(CmsContext);
-  if (!ctx) throw new Error("useCms must be used within CmsProvider");
+  if (!ctx) {
+    // Return safe defaults so components don't crash during HMR or outside provider
+    return {
+      settings: defaultSettings,
+      pageContent: defaultPageContent,
+      visaRates: defaultVisaRates,
+      packages: defaultPackages,
+      bookings: [] as Booking[],
+      updateSettings: () => {},
+      updatePageContent: () => {},
+      updateVisaRates: () => {},
+      updatePackages: () => {},
+      addBooking: () => {},
+      updateBooking: () => {},
+      deleteBooking: () => {},
+      addPackage: () => {},
+      deletePackage: () => {},
+      addVisaRate: () => {},
+      deleteVisaRate: () => {},
+    } as CmsContextType;
+  }
   return ctx;
 };
