@@ -9,12 +9,12 @@ const AirTicketPage = () => {
   const whatsappLink = useWhatsAppLink();
 
   const destinations = [
-    { name: "Dubai", nameBn: "দুবাই", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400" },
-    { name: "Malaysia", nameBn: "মালয়েশিয়া", img: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400" },
-    { name: "Saudi Arabia", nameBn: "সৌদি আরব", img: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=400" },
-    { name: "India", nameBn: "ভারত", img: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=400" },
-    { name: "Thailand", nameBn: "থাইল্যান্ড", img: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=400" },
-    { name: "Singapore", nameBn: "সিঙ্গাপুর", img: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=400" },
+    { name: "Dubai", nameBn: "দুবাই", img: "https://cdn.pixabay.com/photo/2019/03/09/21/30/downtown-4045037_1280.jpg" },
+    { name: "Malaysia", nameBn: "মালয়েশিয়া", img: "https://cdn.pixabay.com/photo/2016/11/14/02/28/petronas-twin-towers-1823492_1280.jpg" },
+    { name: "Saudi Arabia", nameBn: "সৌদি আরব", img: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg" },
+    { name: "India", nameBn: "ভারত", img: "https://cdn.pixabay.com/photo/2020/01/16/18/52/taj-mahal-4770906_1280.jpg" },
+    { name: "Thailand", nameBn: "থাইল্যান্ড", img: "https://cdn.pixabay.com/photo/2020/03/07/11/28/bangkok-4909930_1280.jpg" },
+    { name: "Singapore", nameBn: "সিঙ্গাপুর", img: "https://cdn.pixabay.com/photo/2016/11/22/22/35/singapore-1850733_1280.jpg" },
   ];
 
   return (
