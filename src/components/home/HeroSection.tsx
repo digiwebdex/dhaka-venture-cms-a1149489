@@ -8,7 +8,7 @@ import { Star, ArrowRight, Compass, ChevronLeft, ChevronRight, Users } from "luc
 
 const heroSlides = [
   {
-    image: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1200&q=80",
+    image: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg",
     titleEn: "Find the Best Umrah Packages from Bangladesh",
     titleBn: "বাংলাদেশ থেকে সেরা উমরাহ প্যাকেজ খুঁজুন",
     highlightEn: "Umrah Packages",
@@ -21,7 +21,7 @@ const heroSlides = [
     cta2: { en: "View Hajj Packages", bn: "হজ্জ প্যাকেজ দেখুন" },
   },
   {
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+    image: "https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_1280.jpg",
     titleEn: "Explore Beautiful Destinations Worldwide",
     titleBn: "বিশ্বজুড়ে সুন্দর গন্তব্য অন্বেষণ করুন",
     highlightEn: "Beautiful Destinations",
@@ -34,7 +34,7 @@ const heroSlides = [
     cta2: { en: "View Packages", bn: "প্যাকেজ দেখুন" },
   },
   {
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=1200&q=80",
+    image: "https://cdn.pixabay.com/photo/2016/11/18/13/23/action-1834465_1280.jpg",
     titleEn: "Fly With the Best Fare Guaranteed",
     titleBn: "সেরা ভাড়ার নিশ্চয়তায় উড়ুন",
     highlightEn: "Best Fare",
@@ -47,7 +47,7 @@ const heroSlides = [
     cta2: { en: "View Offers", bn: "অফার দেখুন" },
   },
   {
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+    image: "https://cdn.pixabay.com/photo/2016/11/17/09/28/hotel-1831072_1280.jpg",
     titleEn: "World-Class Hotel Booking Service",
     titleBn: "বিশ্বমানের হোটেল বুকিং সেবা",
     highlightEn: "Hotel Booking",

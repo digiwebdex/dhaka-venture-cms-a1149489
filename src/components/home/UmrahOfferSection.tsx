@@ -34,7 +34,7 @@ const UmrahOfferSection = () => {
           >
             <div className="rounded-2xl overflow-hidden border-2 border-gold/20 shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&q=80"
+                src="https://cdn.pixabay.com/photo/2015/05/15/14/38/mosque-768714_1280.jpg"
                 alt="Umrah"
                 className="w-full h-[400px] object-cover"
                 loading="lazy"
