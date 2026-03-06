@@ -3,6 +3,7 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Star, MapPin, Plane, Hotel, ArrowRight } from "lucide-react";
+import { images } from "@/assets/images";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -16,10 +17,10 @@ const ServicesSection = () => {
   const { t, lang } = useLang();
 
   const services = [
-    { icon: Star, ...t.services.hajj, link: "/services/hajj-umrah", img: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg", gradient: "from-gold/20 to-gold/5" },
-    { icon: MapPin, ...t.services.tour, link: "/services/tour-packages", img: "https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_1280.jpg", gradient: "from-sky/20 to-sky/5" },
-    { icon: Plane, ...t.services.air, link: "/services/air-ticket", img: "https://cdn.pixabay.com/photo/2016/11/18/13/23/action-1834465_1280.jpg", gradient: "from-primary/20 to-primary/5" },
-    { icon: Hotel, ...t.services.hotel, link: "/services/hotel-booking", img: "https://cdn.pixabay.com/photo/2016/11/17/09/28/hotel-1831072_1280.jpg", gradient: "from-success/20 to-success/5" },
+    { icon: Star, ...t.services.hajj, link: "/services/hajj-umrah", img: images.kaaba, gradient: "from-gold/20 to-gold/5" },
+    { icon: MapPin, ...t.services.tour, link: "/services/tour-packages", img: images.beach, gradient: "from-sky/20 to-sky/5" },
+    { icon: Plane, ...t.services.air, link: "/services/air-ticket", img: images.airplane, gradient: "from-primary/20 to-primary/5" },
+    { icon: Hotel, ...t.services.hotel, link: "/services/hotel-booking", img: images.hotel, gradient: "from-success/20 to-success/5" },
   ];
 
   return (

@@ -1,3 +1,5 @@
+import { images } from "@/assets/images";
+
 export interface VisaRate {
   id: string;
   country: string;
@@ -123,7 +125,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ১,৩৫,০০০",
     description: "Complete Umrah package including visa, flight, hotel, transport and guidance.",
     descriptionBn: "ভিসা, ফ্লাইট, হোটেল, পরিবহন ও গাইডেন্স সহ সম্পূর্ণ উমরাহ প্যাকেজ।",
-    image: "https://cdn.pixabay.com/photo/2019/03/11/15/30/kaaba-4049261_1280.jpg",
+    image: images.kaaba,
     featured: true,
     category: "umrah",
   },
@@ -139,7 +141,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ২,২৫,০০০",
     description: "Premium Umrah package with 5-star hotel, private transport and VIP services.",
     descriptionBn: "৫-স্টার হোটেল, প্রাইভেট পরিবহন ও VIP সেবা সহ প্রিমিয়াম উমরাহ প্যাকেজ।",
-    image: "https://cdn.pixabay.com/photo/2015/05/15/14/38/mosque-768714_1280.jpg",
+    image: images.mosque,
     featured: true,
     category: "umrah",
   },
@@ -155,7 +157,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ৮,৫০০",
     description: "Enjoy the world's longest sea beach with comfortable accommodation and sightseeing.",
     descriptionBn: "বিশ্বের দীর্ঘতম সমুদ্র সৈকতে আরামদায়ক থাকা ও ভ্রমণ উপভোগ করুন।",
-    image: "https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_1280.jpg",
+    image: images.beach,
     featured: true,
     category: "tour",
   },
@@ -171,7 +173,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ৩৫,০০০",
     description: "Explore Bangkok and Pattaya with guided tours, shopping and Thai culture.",
     descriptionBn: "গাইডেড ট্যুর, শপিং ও থাই সংস্কৃতি সহ ব্যাংকক ও পাতায়া উপভোগ করুন।",
-    image: "https://cdn.pixabay.com/photo/2020/03/07/11/28/bangkok-4909930_1280.jpg",
+    image: images.thailand,
     featured: true,
     category: "tour",
   },
@@ -187,7 +189,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ৪৫,০০০",
     description: "Visit Burj Khalifa, Dubai Mall, Desert Safari and more iconic attractions.",
     descriptionBn: "বুর্জ খলিফা, দুবাই মল, ডেজার্ট সাফারি সহ আরও অনেক আকর্ষণ পরিদর্শন করুন।",
-    image: "https://cdn.pixabay.com/photo/2019/03/09/21/30/downtown-4045037_1280.jpg",
+    image: images.dubai,
     featured: true,
     category: "tour",
   },
@@ -203,7 +205,7 @@ export const defaultPackages: Package[] = [
     priceBn: "৳ ৬,৫০,০০০",
     description: "Complete Hajj package with all arrangements, experienced guide and group support.",
     descriptionBn: "সকল ব্যবস্থাপনা, অভিজ্ঞ গাইড ও গ্রুপ সাপোর্ট সহ সম্পূর্ণ হজ্জ প্যাকেজ।",
-    image: "https://cdn.pixabay.com/photo/2018/09/12/12/39/mecca-3672283_1280.jpg",
+    image: images.hajj,
     featured: false,
     category: "hajj",
   },
