@@ -77,7 +77,7 @@ export const defaultSettings: SiteSettings = {
   address: "29 Chamelibag, Shantinagar, Dhaka",
   addressBn: "২৯ চামেলীবাগ, শান্তিনগর, ঢাকা",
   phone: "01995-777222",
-  whatsapp: "+8801765444445",
+  whatsapp: "01765444445",
   email: "info@primeskyintl.com",
   facebook: "https://facebook.com/primeskyintl",
   instagram: "https://instagram.com/primeskyintl",
