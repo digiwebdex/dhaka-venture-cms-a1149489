@@ -63,6 +63,7 @@ const heroSlides = [
 
 const HeroSection = () => {
   const { lang } = useLang();
+  const whatsappLink = useWhatsAppLink();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
 

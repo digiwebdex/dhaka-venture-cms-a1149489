@@ -18,6 +18,7 @@ const fadeUp = {
 const PackagesSection = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
+  const whatsappLink = useWhatsAppLink();
   const featuredPackages = packages.filter((p) => p.featured);
 
   return (
