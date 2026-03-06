@@ -73,13 +73,6 @@ const Header = () => {
               <div className="rounded-xl p-1.5">
                 <img src={logoImg} alt="Prime Sky International" className="h-12 w-auto" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-primary font-bold text-lg leading-tight">
-                  {lang === "bn" ? settings.companyNameBn : settings.companyName}
-                </h1>
-                <p className="text-gold text-xs font-medium">{lang === "bn" ? settings.sloganBn : settings.slogan}</p>
-
-              </div>
             </Link>
 
             {/* Desktop nav */}
