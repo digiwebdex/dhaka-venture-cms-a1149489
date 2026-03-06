@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ArrowRight, Compass, ChevronLeft, ChevronRight, Users } from "lucide-react";
@@ -62,6 +63,7 @@ const heroSlides = [
 
 const HeroSection = () => {
   const { lang } = useLang();
+  const whatsappLink = useWhatsAppLink();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -129,12 +131,12 @@ const HeroSection = () => {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Link to="/booking">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold text-base px-8 h-13 shadow-xl shadow-gold/20 rounded-full">
                     {lang === "bn" ? slide.cta1.bn : slide.cta1.en}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
-                </Link>
+                </a>
                 <Link to={slide.link}>
                   <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/5 font-semibold text-base px-8 h-13 rounded-full">
                     {lang === "bn" ? slide.cta2.bn : slide.cta2.en}

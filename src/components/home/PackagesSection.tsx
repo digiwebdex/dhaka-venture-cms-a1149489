@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -17,6 +18,7 @@ const fadeUp = {
 const PackagesSection = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
+  const whatsappLink = useWhatsAppLink();
   const featuredPackages = packages.filter((p) => p.featured);
 
   return (
@@ -86,11 +88,11 @@ const PackagesSection = () => {
                       <p className="text-xs text-muted-foreground">{lang === "bn" ? "মূল্য" : "Price"}</p>
                       <span className="text-xl font-extrabold text-gold">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
                     </div>
-                    <Link to="/booking">
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                       <Button size="sm" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-semibold rounded-full px-5">
                         {t.nav.bookNow}
                       </Button>
-                    </Link>
+                    </a>
                   </div>
                 </CardContent>
               </Card>
