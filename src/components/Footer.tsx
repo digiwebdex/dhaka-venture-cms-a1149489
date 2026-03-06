@@ -77,7 +77,13 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-navy-light mt-10 pt-6 text-center text-sm text-primary-foreground/60">
-          © {new Date().getFullYear()} {t.footer.company}. {t.footer.rights}.
+          <p>© {new Date().getFullYear()} {t.footer.company}. {t.footer.rights}.</p>
+          <p className="mt-1">
+            Design & Developed by{" "}
+            <a href="https://digiwebdex.com/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-medium">
+              Digiwebdex
+            </a>
+          </p>
         </div>
       </div>
     </footer>
