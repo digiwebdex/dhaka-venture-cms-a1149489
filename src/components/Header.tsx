@@ -70,8 +70,8 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-1.5 border border-white/20">
-                <img src={logoImg} alt="Prime Sky International" className="h-12 w-auto brightness-150 contrast-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" />
+              <div className="bg-white rounded-xl p-1.5 shadow-md">
+                <img src={logoImg} alt="Prime Sky International" className="h-12 w-auto" />
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-primary-foreground font-bold text-lg leading-tight drop-shadow-sm">
