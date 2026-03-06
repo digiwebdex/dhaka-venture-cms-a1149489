@@ -65,19 +65,20 @@ const Header = () => {
       </div>
 
       {/* Main navbar */}
-      <header className="bg-primary sticky top-0 z-50 shadow-lg">
+      <header className="bg-white sticky top-0 z-50 shadow-lg border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <div className="bg-white rounded-xl p-1.5 shadow-md">
+              <div className="rounded-xl p-1.5">
                 <img src={logoImg} alt="Prime Sky International" className="h-12 w-auto" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-primary-foreground font-bold text-lg leading-tight drop-shadow-sm">
+                <h1 className="text-primary font-bold text-lg leading-tight">
                   {lang === "bn" ? settings.companyNameBn : settings.companyName}
                 </h1>
                 <p className="text-gold text-xs font-medium">{lang === "bn" ? settings.sloganBn : settings.slogan}</p>
+
               </div>
             </Link>
 
@@ -89,8 +90,8 @@ const Header = () => {
                   to={link.path}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive(link.path)
-                      ? "bg-navy-light text-gold"
-                      : "text-primary-foreground hover:bg-navy-light hover:text-gold"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-primary/10 hover:text-primary"
                   }`}
                 >
                   {link.label}
@@ -102,8 +103,8 @@ const Header = () => {
                 <button
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
                     location.pathname.startsWith("/services")
-                      ? "bg-navy-light text-gold"
-                      : "text-primary-foreground hover:bg-navy-light hover:text-gold"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-primary/10 hover:text-primary"
                   }`}
                 >
                   {t.nav.services}
@@ -131,8 +132,8 @@ const Header = () => {
                   to={link.path}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive(link.path)
-                      ? "bg-navy-light text-gold"
-                      : "text-primary-foreground hover:bg-navy-light hover:text-gold"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-primary/10 hover:text-primary"
                   }`}
                 >
                   {link.label}
@@ -148,7 +149,7 @@ const Header = () => {
 
             {/* Mobile menu button */}
             <button
-              className="lg:hidden text-primary-foreground p-2"
+              className="lg:hidden text-foreground p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
