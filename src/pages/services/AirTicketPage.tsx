@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plane } from "lucide-react";
 
 const AirTicketPage = () => {
   const { t, lang } = useLang();
+  const whatsappLink = useWhatsAppLink();
 
   const destinations = [
     { name: "Dubai", nameBn: "দুবাই", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400" },
@@ -37,9 +38,9 @@ const AirTicketPage = () => {
               </div>
               <CardContent className="p-5 text-center">
                 <h3 className="font-bold text-lg mb-3">{lang === "bn" ? dest.nameBn : dest.name}</h3>
-                <Link to="/booking">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                   <Button className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-semibold">{t.nav.bookNow}</Button>
-                </Link>
+                </a>
               </CardContent>
             </Card>
           ))}

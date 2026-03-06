@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import logoImg from "@/assets/logo_prime.png";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Globe, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const { t, toggleLang, lang } = useLang();
+  const whatsappLink = useWhatsAppLink();
   const { settings } = useCms();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -137,11 +139,11 @@ const Header = () => {
                 </Link>
               ))}
 
-              <Link to="/booking">
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-gold-gradient text-secondary-foreground hover:opacity-90 ml-2 font-semibold">
                   {t.nav.bookNow}
                 </Button>
-              </Link>
+              </a>
             </nav>
 
             {/* Mobile menu button */}
@@ -183,11 +185,11 @@ const Header = () => {
                   </Link>
                 ))}
               </div>
-              <Link to="/booking" onClick={() => setMobileOpen(false)}>
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
                 <Button className="w-full bg-gold-gradient text-secondary-foreground font-semibold mt-2">
                   {t.nav.bookNow}
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         )}

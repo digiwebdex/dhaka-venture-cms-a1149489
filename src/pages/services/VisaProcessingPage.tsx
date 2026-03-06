@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,6 +9,7 @@ import { FileCheck } from "lucide-react";
 const VisaProcessingPage = () => {
   const { t, lang } = useLang();
   const { visaRates } = useCms();
+  const whatsappLink = useWhatsAppLink();
 
   return (
     <div className="py-16">
@@ -41,11 +42,11 @@ const VisaProcessingPage = () => {
           </Table>
         </Card>
         <div className="text-center mt-8">
-          <Link to="/booking">
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold h-14 px-8">
               {t.nav.bookNow}
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </div>

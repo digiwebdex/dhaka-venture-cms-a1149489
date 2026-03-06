@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
+import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -8,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 const PackagesPage = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
+  const whatsappLink = useWhatsAppLink();
 
   return (
     <div className="py-16">
@@ -33,11 +35,11 @@ const PackagesPage = () => {
                 <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{lang === "bn" ? pkg.descriptionBn : pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-extrabold text-primary">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
-                  <Link to="/booking">
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                     <Button size="sm" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-semibold">
                       {t.nav.bookNow}
                     </Button>
-                  </Link>
+                  </a>
                 </div>
               </CardContent>
             </Card>
