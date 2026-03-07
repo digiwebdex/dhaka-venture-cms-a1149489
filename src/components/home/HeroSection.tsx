@@ -37,7 +37,7 @@ const heroSlides = [
   {
     image: images.airplane,
     titleEn: "Fly With the Best Fare Guaranteed",
-    titleBn: "সেরা ভাড়ার নিশ্চয়তায় উড়ুন",
+    titleBn: "সেরা ভাড়া নিশ্চয়তায় উড়ুন",
     highlightEn: "Best Fare",
     highlightBn: "সেরা ভাড়া",
     subtitleEn: "Dubai, Malaysia, Saudi Arabia, India — Get the most competitive air ticket prices.",
