@@ -111,14 +111,21 @@ const HeroSection = () => {
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1]">
-                <span className="text-primary-foreground">
-                  {lang === "bn"
-                    ? slide.titleBn.replace(slide.highlightBn, "")
-                    : slide.titleEn.replace(slide.highlightEn, "")}
-                </span>
-                <span className="text-gradient">
-                  {lang === "bn" ? slide.highlightBn : slide.highlightEn}
-                </span>
+                {(() => {
+                  const title = lang === "bn" ? slide.titleBn : slide.titleEn;
+                  const highlight = lang === "bn" ? slide.highlightBn : slide.highlightEn;
+                  const idx = title.indexOf(highlight);
+                  if (idx === -1) return <span className="text-primary-foreground">{title}</span>;
+                  const before = title.slice(0, idx);
+                  const after = title.slice(idx + highlight.length);
+                  return (
+                    <>
+                      <span className="text-primary-foreground">{before}</span>
+                      <span className="text-gradient">{highlight}</span>
+                      <span className="text-primary-foreground">{after}</span>
+                    </>
+                  );
+                })()}
               </h1>
 
               <p className="text-primary-foreground/60 text-base md:text-lg max-w-xl leading-relaxed">
