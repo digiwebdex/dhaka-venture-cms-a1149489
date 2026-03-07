@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
-import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, MapPin, Star } from "lucide-react";
-
+import BookingFormDialog from "@/components/BookingFormDialog";
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
@@ -18,8 +18,9 @@ const fadeUp = {
 const PackagesSection = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
-  const whatsappLink = useWhatsAppLink();
   const featuredPackages = packages.filter((p) => p.featured);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedPkg, setSelectedPkg] = useState("");
 
   return (
     <section className="py-20 md:py-28 bg-muted/30">
@@ -88,11 +89,9 @@ const PackagesSection = () => {
                       <p className="text-xs text-muted-foreground">{lang === "bn" ? "মূল্য" : "Price"}</p>
                       <span className="text-xl font-extrabold text-gold">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
                     </div>
-                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" variant="gold" className="rounded-full px-5">
-                        {t.nav.bookNow}
-                      </Button>
-                    </a>
+                    <Button size="sm" variant="gold" className="rounded-full px-5" onClick={() => { setSelectedPkg(lang === "bn" ? pkg.titleBn : pkg.title); setBookingOpen(true); }}>
+                      {t.nav.bookNow}
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -108,6 +107,8 @@ const PackagesSection = () => {
             </Button>
           </Link>
         </div>
+
+        <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
       </div>
     </section>
   );
