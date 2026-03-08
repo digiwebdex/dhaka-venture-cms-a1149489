@@ -1,69 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+import { useCms } from "@/contexts/CmsContext";
 import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ArrowRight, Compass, ChevronLeft, ChevronRight, Users } from "lucide-react";
-import { images } from "@/assets/images";
-
-const heroSlides = [
-  {
-    image: images.kaaba,
-    titleEn: "Find the Best Umrah Packages from Bangladesh",
-    titleBn: "বাংলাদেশ থেকে সেরা উমরাহ প্যাকেজ খুঁজুন",
-    highlightEn: "Umrah Packages",
-    highlightBn: "উমরাহ প্যাকেজ",
-    subtitleEn: "Prime Sky International offers comprehensive Hajj & Umrah packages with premium services, expert guidance and spiritual fulfillment.",
-    subtitleBn: "প্রাইম স্কাই ইন্টারন্যাশনাল প্রিমিয়াম সেবা, বিশেষজ্ঞ গাইডেন্স এবং আধ্যাত্মিক পরিপূর্ণতার সাথে ব্যাপক হজ্জ ও উমরাহ প্যাকেজ অফার করে।",
-    link: "/services/hajj-umrah",
-    badge: { en: "Trusted Hajj & Umrah Partner", bn: "বিশ্বস্ত হজ্জ ও উমরাহ পার্টনার" },
-    cta1: { en: "Plan Umrah", bn: "উমরাহ পরিকল্পনা করুন" },
-    cta2: { en: "View Hajj Packages", bn: "হজ্জ প্যাকেজ দেখুন" },
-  },
-  {
-    image: images.beach,
-    titleEn: "Explore Beautiful Destinations Worldwide",
-    titleBn: "বিশ্বজুড়ে সুন্দর গন্তব্য অন্বেষণ করুন",
-    highlightEn: "Beautiful Destinations",
-    highlightBn: "সুন্দর গন্তব্য",
-    subtitleEn: "Cox's Bazar, Thailand, Dubai — Unforgettable tour packages with the best travel experiences.",
-    subtitleBn: "কক্সবাজার, থাইল্যান্ড, দুবাই — সেরা ভ্রমণ অভিজ্ঞতার সাথে অবিস্মরণীয় ট্যুর প্যাকেজ।",
-    link: "/services/tour-packages",
-    badge: { en: "Premium Tour Packages", bn: "প্রিমিয়াম ট্যুর প্যাকেজ" },
-    cta1: { en: "Explore Tours", bn: "ট্যুর দেখুন" },
-    cta2: { en: "View Packages", bn: "প্যাকেজ দেখুন" },
-  },
-  {
-    image: images.airplane,
-    titleEn: "Fly With the Best Fare Guaranteed",
-    titleBn: "সেরা ভাড়া নিশ্চয়তায় উড়ুন",
-    highlightEn: "Best Fare",
-    highlightBn: "সেরা ভাড়া",
-    subtitleEn: "Dubai, Malaysia, Saudi Arabia, India — Get the most competitive air ticket prices.",
-    subtitleBn: "দুবাই, মালয়েশিয়া, সৌদি আরব, ভারত — সবচেয়ে প্রতিযোগিতামূলক এয়ার টিকেটের দাম পান।",
-    link: "/services/air-ticket",
-    badge: { en: "Affordable Air Tickets", bn: "সাশ্রয়ী এয়ার টিকেট" },
-    cta1: { en: "Book Flight", bn: "ফ্লাইট বুক করুন" },
-    cta2: { en: "View Offers", bn: "অফার দেখুন" },
-  },
-  {
-    image: images.hotel,
-    titleEn: "World-Class Hotel Booking Service",
-    titleBn: "বিশ্বমানের হোটেল বুকিং সেবা",
-    highlightEn: "Hotel Booking",
-    highlightBn: "হোটেল বুকিং",
-    subtitleEn: "Luxury & budget hotels worldwide at the best rates with guaranteed quality.",
-    subtitleBn: "সেরা দামে বিশ্বজুড়ে লাক্সারি ও বাজেট হোটেল মানসম্মত নিশ্চয়তায়।",
-    link: "/services/hotel-booking",
-    badge: { en: "Premium Hotels", bn: "প্রিমিয়াম হোটেল" },
-    cta1: { en: "Book Hotel", bn: "হোটেল বুক করুন" },
-    cta2: { en: "View Hotels", bn: "হোটেল দেখুন" },
-  },
-];
+import { Star, ArrowRight, ChevronLeft, ChevronRight, Users } from "lucide-react";
 
 const HeroSection = () => {
   const { lang } = useLang();
+  const { heroSlides } = useCms();
   const whatsappLink = useWhatsAppLink();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -71,19 +17,21 @@ const HeroSection = () => {
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  }, []);
+  }, [heroSlides.length]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  }, []);
+  }, [heroSlides.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 6000);
     return () => clearInterval(timer);
   }, [nextSlide]);
 
-  const slide = heroSlides[currentSlide];
+  if (heroSlides.length === 0) return null;
+
+  const slide = heroSlides[currentSlide % heroSlides.length];
 
   return (
     <section className="relative min-h-[90vh] bg-navy-gradient overflow-hidden">
@@ -106,7 +54,7 @@ const HeroSection = () => {
               <div className="inline-flex items-center gap-2 bg-gold/10 backdrop-blur-sm border border-gold/20 text-gold px-4 py-2 rounded-full">
                 <Star className="w-4 h-4 fill-gold" />
                 <span className="text-sm font-semibold tracking-wide">
-                  {lang === "bn" ? slide.badge.bn : slide.badge.en}
+                  {lang === "bn" ? slide.badgeBn : slide.badgeEn}
                 </span>
               </div>
 
@@ -135,13 +83,13 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="gold" className="font-bold text-base px-8 h-13 shadow-xl shadow-gold/20 rounded-full">
-                    {lang === "bn" ? slide.cta1.bn : slide.cta1.en}
+                    {lang === "bn" ? slide.cta1Bn : slide.cta1En}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
                 <Link to={slide.link}>
                   <Button size="lg" variant="gold" className="font-semibold text-base px-8 h-13 rounded-full">
-                    {lang === "bn" ? slide.cta2.bn : slide.cta2.en}
+                    {lang === "bn" ? slide.cta2Bn : slide.cta2En}
                   </Button>
                 </Link>
               </div>

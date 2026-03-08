@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, X } from "lucide-react";
+import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star } from "lucide-react";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "primesky2025";
@@ -57,9 +57,13 @@ const AdminLayout = () => {
 
   const menuItems = [
     { path: "/admin", icon: LayoutDashboard, label: t.admin.dashboard },
+    { path: "/admin/hero-slides", icon: Image, label: "Hero Slides" },
     { path: "/admin/content", icon: FileText, label: t.admin.manageContent },
     { path: "/admin/packages", icon: Package, label: t.admin.managePackages },
     { path: "/admin/visa", icon: Globe, label: t.admin.manageVisa },
+    { path: "/admin/flight-offers", icon: Plane, label: "Flight Offers" },
+    { path: "/admin/umrah-offer", icon: Star, label: "Umrah Offer" },
+    { path: "/admin/stats", icon: BarChart3, label: "Stats Section" },
     { path: "/admin/bookings", icon: BookOpen, label: t.admin.manageBookings },
     { path: "/admin/settings", icon: Settings, label: t.admin.settings },
   ];
@@ -74,7 +78,7 @@ const AdminLayout = () => {
             <span className="font-bold text-sm">Prime Sky Admin</span>
           </div>
         </div>
-        <nav className="p-3 space-y-1">
+        <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
           {menuItems.map((item) => (
             <Link
               key={item.path}

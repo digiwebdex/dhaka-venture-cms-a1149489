@@ -24,6 +24,10 @@ import AdminPackages from "./pages/admin/AdminPackages";
 import AdminVisa from "./pages/admin/AdminVisa";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminHeroSlides from "./pages/admin/AdminHeroSlides";
+import AdminStats from "./pages/admin/AdminStats";
+import AdminFlightOffers from "./pages/admin/AdminFlightOffers";
+import AdminUmrahOffer from "./pages/admin/AdminUmrahOffer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -59,6 +63,10 @@ const App = () => (
                 <Route path="visa" element={<AdminVisa />} />
                 <Route path="bookings" element={<AdminBookings />} />
                 <Route path="settings" element={<AdminSettings />} />
+                <Route path="hero-slides" element={<AdminHeroSlides />} />
+                <Route path="stats" element={<AdminStats />} />
+                <Route path="flight-offers" element={<AdminFlightOffers />} />
+                <Route path="umrah-offer" element={<AdminUmrahOffer />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />
