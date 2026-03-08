@@ -69,6 +69,54 @@ export interface PageContent {
   visionTextBn: string;
 }
 
+export interface HeroSlide {
+  id: string;
+  image: string;
+  titleEn: string;
+  titleBn: string;
+  highlightEn: string;
+  highlightBn: string;
+  subtitleEn: string;
+  subtitleBn: string;
+  link: string;
+  badgeEn: string;
+  badgeBn: string;
+  cta1En: string;
+  cta1Bn: string;
+  cta2En: string;
+  cta2Bn: string;
+}
+
+export interface StatItem {
+  id: string;
+  icon: string;
+  valueEn: string;
+  valueBn: string;
+  labelEn: string;
+  labelBn: string;
+}
+
+export interface FlightRoute {
+  id: string;
+  from: string;
+  to: string;
+  fromBn: string;
+  toBn: string;
+  price: string;
+  priceBn: string;
+}
+
+export interface UmrahOffer {
+  titleEn: string;
+  titleBn: string;
+  descEn: string;
+  descBn: string;
+  price: string;
+  image: string;
+  featuresEn: string[];
+  featuresBn: string[];
+}
+
 export const defaultSettings: SiteSettings = {
   companyName: "Prime Sky International",
   companyNameBn: "প্রাইম স্কাই ইন্টারন্যাশনাল",
@@ -95,6 +143,102 @@ export const defaultPageContent: PageContent = {
   missionTextBn: "সাশ্রয়ী মূল্যে মানসম্মত ভ্রমণ সেবা প্রদান করা এবং প্রতিটি গ্রাহকের যাত্রাকে স্মরণীয় করে তোলা।",
   visionText: "To become the most trusted and popular travel agency in Bangladesh.",
   visionTextBn: "বাংলাদেশের সবচেয়ে বিশ্বস্ত ও জনপ্রিয় ট্রাভেল এজেন্সি হিসেবে প্রতিষ্ঠিত হওয়া।",
+};
+
+export const defaultHeroSlides: HeroSlide[] = [
+  {
+    id: "1",
+    image: images.kaaba,
+    titleEn: "Find the Best Umrah Packages from Bangladesh",
+    titleBn: "বাংলাদেশ থেকে সেরা উমরাহ প্যাকেজ খুঁজুন",
+    highlightEn: "Umrah Packages",
+    highlightBn: "উমরাহ প্যাকেজ",
+    subtitleEn: "Prime Sky International offers comprehensive Hajj & Umrah packages with premium services, expert guidance and spiritual fulfillment.",
+    subtitleBn: "প্রাইম স্কাই ইন্টারন্যাশনাল প্রিমিয়াম সেবা, বিশেষজ্ঞ গাইডেন্স এবং আধ্যাত্মিক পরিপূর্ণতার সাথে ব্যাপক হজ্জ ও উমরাহ প্যাকেজ অফার করে।",
+    link: "/services/hajj-umrah",
+    badgeEn: "Trusted Hajj & Umrah Partner",
+    badgeBn: "বিশ্বস্ত হজ্জ ও উমরাহ পার্টনার",
+    cta1En: "Plan Umrah",
+    cta1Bn: "উমরাহ পরিকল্পনা করুন",
+    cta2En: "View Hajj Packages",
+    cta2Bn: "হজ্জ প্যাকেজ দেখুন",
+  },
+  {
+    id: "2",
+    image: images.beach,
+    titleEn: "Explore Beautiful Destinations Worldwide",
+    titleBn: "বিশ্বজুড়ে সুন্দর গন্তব্য অন্বেষণ করুন",
+    highlightEn: "Beautiful Destinations",
+    highlightBn: "সুন্দর গন্তব্য",
+    subtitleEn: "Cox's Bazar, Thailand, Dubai — Unforgettable tour packages with the best travel experiences.",
+    subtitleBn: "কক্সবাজার, থাইল্যান্ড, দুবাই — সেরা ভ্রমণ অভিজ্ঞতার সাথে অবিস্মরণীয় ট্যুর প্যাকেজ।",
+    link: "/services/tour-packages",
+    badgeEn: "Premium Tour Packages",
+    badgeBn: "প্রিমিয়াম ট্যুর প্যাকেজ",
+    cta1En: "Explore Tours",
+    cta1Bn: "ট্যুর দেখুন",
+    cta2En: "View Packages",
+    cta2Bn: "প্যাকেজ দেখুন",
+  },
+  {
+    id: "3",
+    image: images.airplane,
+    titleEn: "Fly With the Best Fare Guaranteed",
+    titleBn: "সেরা ভাড়া নিশ্চয়তায় উড়ুন",
+    highlightEn: "Best Fare",
+    highlightBn: "সেরা ভাড়া",
+    subtitleEn: "Dubai, Malaysia, Saudi Arabia, India — Get the most competitive air ticket prices.",
+    subtitleBn: "দুবাই, মালয়েশিয়া, সৌদি আরব, ভারত — সবচেয়ে প্রতিযোগিতামূলক এয়ার টিকেটের দাম পান।",
+    link: "/services/air-ticket",
+    badgeEn: "Affordable Air Tickets",
+    badgeBn: "সাশ্রয়ী এয়ার টিকেট",
+    cta1En: "Book Flight",
+    cta1Bn: "ফ্লাইট বুক করুন",
+    cta2En: "View Offers",
+    cta2Bn: "অফার দেখুন",
+  },
+  {
+    id: "4",
+    image: images.hotel,
+    titleEn: "World-Class Hotel Booking Service",
+    titleBn: "বিশ্বমানের হোটেল বুকিং সেবা",
+    highlightEn: "Hotel Booking",
+    highlightBn: "হোটেল বুকিং",
+    subtitleEn: "Luxury & budget hotels worldwide at the best rates with guaranteed quality.",
+    subtitleBn: "সেরা দামে বিশ্বজুড়ে লাক্সারি ও বাজেট হোটেল মানসম্মত নিশ্চয়তায়।",
+    link: "/services/hotel-booking",
+    badgeEn: "Premium Hotels",
+    badgeBn: "প্রিমিয়াম হোটেল",
+    cta1En: "Book Hotel",
+    cta1Bn: "হোটেল বুক করুন",
+    cta2En: "View Hotels",
+    cta2Bn: "হোটেল দেখুন",
+  },
+];
+
+export const defaultStats: StatItem[] = [
+  { id: "1", icon: "Shield", valueEn: "10+", valueBn: "১০+", labelEn: "Years Experience", labelBn: "বছরের অভিজ্ঞতা" },
+  { id: "2", icon: "BookOpen", valueEn: "1000+", valueBn: "১০০০+", labelEn: "Happy Clients", labelBn: "সুখী ক্লায়েন্ট" },
+  { id: "3", icon: "Globe", valueEn: "25+", valueBn: "২৫+", labelEn: "Destinations", labelBn: "গন্তব্যস্থল" },
+  { id: "4", icon: "Headphones", valueEn: "24/7", valueBn: "২৪/৭", labelEn: "Support", labelBn: "সাপোর্ট" },
+];
+
+export const defaultFlightRoutes: FlightRoute[] = [
+  { id: "1", from: "Dhaka", to: "Dubai", fromBn: "ঢাকা", toBn: "দুবাই", price: "BDT 28,000", priceBn: "৳ ২৮,০০০" },
+  { id: "2", from: "Dhaka", to: "Malaysia", fromBn: "ঢাকা", toBn: "মালয়েশিয়া", price: "BDT 22,000", priceBn: "৳ ২২,০০০" },
+  { id: "3", from: "Dhaka", to: "Saudi Arabia", fromBn: "ঢাকা", toBn: "সৌদি আরব", price: "BDT 35,000", priceBn: "৳ ৩৫,০০০" },
+  { id: "4", from: "Dhaka", to: "India", fromBn: "ঢাকা", toBn: "ভারত", price: "BDT 12,000", priceBn: "৳ ১২,০০০" },
+];
+
+export const defaultUmrahOffer: UmrahOffer = {
+  titleEn: "UMRAH SPECIAL OFFER",
+  titleBn: "উমরাহ স্পেশাল অফার",
+  descEn: "All responsibilities including visa processing are ours. Premium service guaranteed.",
+  descBn: "ভিসা প্রসেসিং সহ সকল দায়িত্ব আমাদের। প্রিমিয়াম সেবা নিশ্চিত।",
+  price: "BDT 135,000",
+  image: images.mosque,
+  featuresEn: ["Visa Processing", "5-Star Hotel", "Flight Included", "Expert Guide", "Ziyarat Tour", "24/7 Support"],
+  featuresBn: ["ভিসা প্রসেসিং", "৫-স্টার হোটেল", "ফ্লাইট অন্তর্ভুক্ত", "বিশেষজ্ঞ গাইড", "জিয়ারত ট্যুর", "২৪/৭ সাপোর্ট"],
 };
 
 export const defaultVisaRates: VisaRate[] = [
