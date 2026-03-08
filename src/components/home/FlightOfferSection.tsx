@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+import { useCms } from "@/contexts/CmsContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Plane } from "lucide-react";
 
-const routes = [
-  { from: "Dhaka", to: "Dubai", fromBn: "ঢাকা", toBn: "দুবাই", price: "BDT 28,000", priceBn: "৳ ২৮,০০০" },
-  { from: "Dhaka", to: "Malaysia", fromBn: "ঢাকা", toBn: "মালয়েশিয়া", price: "BDT 22,000", priceBn: "৳ ২২,০০০" },
-  { from: "Dhaka", to: "Saudi Arabia", fromBn: "ঢাকা", toBn: "সৌদি আরব", price: "BDT 35,000", priceBn: "৳ ৩৫,০০০" },
-  { from: "Dhaka", to: "India", fromBn: "ঢাকা", toBn: "ভারত", price: "BDT 12,000", priceBn: "৳ ১২,০০০" },
-];
-
 const FlightOfferSection = () => {
   const { t, lang } = useLang();
+  const { flightRoutes } = useCms();
 
   return (
     <section className="py-20 bg-background">
@@ -37,9 +32,9 @@ const FlightOfferSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-          {routes.map((route, i) => (
+          {flightRoutes.map((route, i) => (
             <motion.div
-              key={i}
+              key={route.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

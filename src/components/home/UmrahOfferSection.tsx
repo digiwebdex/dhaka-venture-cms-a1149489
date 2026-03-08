@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+import { useCms } from "@/contexts/CmsContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { images } from "@/assets/images";
-
-const features = {
-  en: ["Visa Processing", "5-Star Hotel", "Flight Included", "Expert Guide", "Ziyarat Tour", "24/7 Support"],
-  bn: ["ভিসা প্রসেসিং", "৫-স্টার হোটেল", "ফ্লাইট অন্তর্ভুক্ত", "বিশেষজ্ঞ গাইড", "জিয়ারত ট্যুর", "২৪/৭ সাপোর্ট"],
-};
 
 const UmrahOfferSection = () => {
-  const { t, lang } = useLang();
+  const { lang } = useLang();
+  const { umrahOffer } = useCms();
 
   return (
     <section className="py-20 bg-navy-gradient relative overflow-hidden">
@@ -32,11 +28,11 @@ const UmrahOfferSection = () => {
             className="relative"
           >
             <div className="rounded-2xl overflow-hidden border-2 border-gold/20 shadow-2xl">
-              <img src={images.mosque} alt="Umrah" className="w-full h-[400px] object-cover" loading="lazy" />
+              <img src={umrahOffer.image} alt="Umrah" className="w-full h-[400px] object-cover" loading="lazy" />
             </div>
             <div className="absolute -bottom-4 -right-4 bg-gold-gradient rounded-2xl px-6 py-4 shadow-xl">
               <p className="font-bold text-sm">{lang === "bn" ? "শুরু হচ্ছে মাত্র" : "Starting From"}</p>
-              <p className="font-extrabold text-2xl">BDT 135,000</p>
+              <p className="font-extrabold text-2xl">{umrahOffer.price}</p>
             </div>
           </motion.div>
 
@@ -50,16 +46,14 @@ const UmrahOfferSection = () => {
               {lang === "bn" ? "বিশেষ অফার" : "Special Offer"}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-primary-foreground leading-tight">
-              {t.offers.umrahTitle}
+              {lang === "bn" ? umrahOffer.titleBn : umrahOffer.titleEn}
             </h2>
             <p className="text-primary-foreground/60 text-lg">
-              {lang === "bn"
-                ? "ভিসা প্রসেসিং সহ সকল দায়িত্ব আমাদের। প্রিমিয়াম সেবা নিশ্চিত।"
-                : "All responsibilities including visa processing are ours. Premium service guaranteed."}
+              {lang === "bn" ? umrahOffer.descBn : umrahOffer.descEn}
             </p>
 
             <div className="grid grid-cols-2 gap-3">
-              {(lang === "bn" ? features.bn : features.en).map((feature, i) => (
+              {(lang === "bn" ? umrahOffer.featuresBn : umrahOffer.featuresEn).map((feature, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
                   <span className="text-primary-foreground/80 text-sm">{feature}</span>
