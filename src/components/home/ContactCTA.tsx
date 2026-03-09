@@ -7,7 +7,7 @@ import { MessageCircle, Phone } from "lucide-react";
 
 const ContactCTA = () => {
   const { t, lang } = useLang();
-  const { settings } = useCms();
+  const { settings, contactCta } = useCms();
 
   return (
     <section className="py-20 bg-navy-gradient relative overflow-hidden">
@@ -18,15 +18,13 @@ const ContactCTA = () => {
       <div className="container mx-auto px-4 text-center relative">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto">
           <span className="inline-block text-gold font-semibold text-sm uppercase tracking-widest mb-4">
-            {lang === "bn" ? "যোগাযোগ" : "Get in Touch"}
+            {lang === "bn" ? contactCta.badgeBn : contactCta.badgeEn}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-primary-foreground mb-5">
-            {lang === "bn" ? "আজই যোগাযোগ করুন" : "Contact Us Today"}
+            {lang === "bn" ? contactCta.titleBn : contactCta.titleEn}
           </h2>
           <p className="text-primary-foreground/50 text-lg mb-10 max-w-xl mx-auto">
-            {lang === "bn"
-              ? "আপনার স্বপ্নের ভ্রমণ পরিকল্পনা করতে আমাদের সাথে যোগাযোগ করুন"
-              : "Contact us to plan your dream trip"}
+            {lang === "bn" ? contactCta.subtitleBn : contactCta.subtitleEn}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact">

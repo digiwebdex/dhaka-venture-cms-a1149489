@@ -3,8 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CmsProvider } from "@/contexts/CmsContext";
+import SeoHead from "@/components/SeoHead";
 
 import PublicLayout from "@/components/PublicLayout";
 import Index from "./pages/Index";
@@ -28,53 +30,62 @@ import AdminHeroSlides from "./pages/admin/AdminHeroSlides";
 import AdminStats from "./pages/admin/AdminStats";
 import AdminFlightOffers from "./pages/admin/AdminFlightOffers";
 import AdminUmrahOffer from "./pages/admin/AdminUmrahOffer";
+import AdminSEO from "./pages/admin/AdminSEO";
+import AdminServices from "./pages/admin/AdminServices";
+import AdminFooter from "./pages/admin/AdminFooter";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <CmsProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              {/* Public routes */}
-              <Route element={<PublicLayout />}>
-                <Route path="/" element={<Index />} />
-                <Route path="/packages" element={<PackagesPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/booking" element={<BookingPage />} />
-                <Route path="/services/hajj-umrah" element={<HajjUmrahPage />} />
-                <Route path="/services/tour-packages" element={<TourPackagesPage />} />
-                <Route path="/services/air-ticket" element={<AirTicketPage />} />
-                <Route path="/services/hotel-booking" element={<HotelBookingPage />} />
-                <Route path="/services/visa-processing" element={<VisaProcessingPage />} />
-              </Route>
+    <HelmetProvider>
+      <LanguageProvider>
+        <CmsProvider>
+          <TooltipProvider>
+            <SeoHead />
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                {/* Public routes */}
+                <Route element={<PublicLayout />}>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/packages" element={<PackagesPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/booking" element={<BookingPage />} />
+                  <Route path="/services/hajj-umrah" element={<HajjUmrahPage />} />
+                  <Route path="/services/tour-packages" element={<TourPackagesPage />} />
+                  <Route path="/services/air-ticket" element={<AirTicketPage />} />
+                  <Route path="/services/hotel-booking" element={<HotelBookingPage />} />
+                  <Route path="/services/visa-processing" element={<VisaProcessingPage />} />
+                </Route>
 
-              {/* Admin routes */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="content" element={<AdminContent />} />
-                <Route path="packages" element={<AdminPackages />} />
-                <Route path="visa" element={<AdminVisa />} />
-                <Route path="bookings" element={<AdminBookings />} />
-                <Route path="settings" element={<AdminSettings />} />
-                <Route path="hero-slides" element={<AdminHeroSlides />} />
-                <Route path="stats" element={<AdminStats />} />
-                <Route path="flight-offers" element={<AdminFlightOffers />} />
-                <Route path="umrah-offer" element={<AdminUmrahOffer />} />
-              </Route>
+                {/* Admin routes */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="content" element={<AdminContent />} />
+                  <Route path="packages" element={<AdminPackages />} />
+                  <Route path="visa" element={<AdminVisa />} />
+                  <Route path="bookings" element={<AdminBookings />} />
+                  <Route path="settings" element={<AdminSettings />} />
+                  <Route path="hero-slides" element={<AdminHeroSlides />} />
+                  <Route path="stats" element={<AdminStats />} />
+                  <Route path="flight-offers" element={<AdminFlightOffers />} />
+                  <Route path="umrah-offer" element={<AdminUmrahOffer />} />
+                  <Route path="seo" element={<AdminSEO />} />
+                  <Route path="services" element={<AdminServices />} />
+                  <Route path="footer" element={<AdminFooter />} />
+                </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </CmsProvider>
-    </LanguageProvider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </CmsProvider>
+      </LanguageProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 

@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react"
 
 const Footer = () => {
   const { t, lang } = useLang();
-  const { settings } = useCms();
+  const { settings, footerContent } = useCms();
 
   return (
     <footer className="bg-navy-gradient text-primary-foreground">
@@ -17,9 +17,7 @@ const Footer = () => {
               <img src="/logo_prime.png" alt="Logo" className="h-12 w-auto" />
             </div>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
-              {lang === "bn"
-                ? "বাংলাদেশের একটি নির্ভরযোগ্য ট্রাভেল এজেন্সি। হজ্জ ও উমরাহ, ট্যুর প্যাকেজ, এয়ার টিকেট এবং হোটেল বুকিং সেবা।"
-                : "A reliable travel agency in Bangladesh. Hajj & Umrah, Tour Packages, Air Tickets and Hotel Booking services."}
+              {lang === "bn" ? footerContent.descriptionBn : footerContent.descriptionEn}
             </p>
           </div>
 
@@ -77,13 +75,15 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-navy-light mt-10 pt-6 text-center text-sm text-primary-foreground/60">
-          <p>© {new Date().getFullYear()} {t.footer.company}. {t.footer.rights}.</p>
-          <p className="mt-1">
-            Design & Developed by{" "}
-            <a href="https://digiwebdex.com/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-medium">
-              Digiwebdex
-            </a>
-          </p>
+          <p>© {new Date().getFullYear()} {lang === "bn" ? settings.companyNameBn : settings.companyName}. {lang === "bn" ? footerContent.copyrightBn : footerContent.copyrightEn}.</p>
+          {footerContent.developerName && (
+            <p className="mt-1">
+              Design & Developed by{" "}
+              <a href={footerContent.developerUrl} target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-medium">
+                {footerContent.developerName}
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </footer>

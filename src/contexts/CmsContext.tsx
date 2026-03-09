@@ -2,8 +2,10 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import {
   SiteSettings, PageContent, VisaRate, Package, Booking,
   HeroSlide, StatItem, FlightRoute, UmrahOffer,
+  SeoSettings, ServiceItem, FooterContent, ContactCtaContent,
   defaultSettings, defaultPageContent, defaultVisaRates, defaultPackages,
   defaultHeroSlides, defaultStats, defaultFlightRoutes, defaultUmrahOffer,
+  defaultSeoSettings, defaultServices, defaultFooterContent, defaultContactCta,
 } from "@/data/defaultData";
 
 interface CmsContextType {
@@ -16,6 +18,10 @@ interface CmsContextType {
   stats: StatItem[];
   flightRoutes: FlightRoute[];
   umrahOffer: UmrahOffer;
+  seoSettings: SeoSettings;
+  services: ServiceItem[];
+  footerContent: FooterContent;
+  contactCta: ContactCtaContent;
   updateSettings: (s: SiteSettings) => void;
   updatePageContent: (p: PageContent) => void;
   updateVisaRates: (v: VisaRate[]) => void;
@@ -37,6 +43,12 @@ interface CmsContextType {
   addFlightRoute: (r: FlightRoute) => void;
   deleteFlightRoute: (id: string) => void;
   updateUmrahOffer: (o: UmrahOffer) => void;
+  updateSeoSettings: (s: SeoSettings) => void;
+  updateServices: (s: ServiceItem[]) => void;
+  addService: (s: ServiceItem) => void;
+  deleteService: (id: string) => void;
+  updateFooterContent: (f: FooterContent) => void;
+  updateContactCta: (c: ContactCtaContent) => void;
 }
 
 const CmsContext = createContext<CmsContextType | undefined>(undefined);
@@ -60,6 +72,10 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
   const [stats, setStats] = useState<StatItem[]>(() => loadFromStorage("cms_stats", defaultStats));
   const [flightRoutes, setFlightRoutes] = useState<FlightRoute[]>(() => loadFromStorage("cms_flightRoutes", defaultFlightRoutes));
   const [umrahOffer, setUmrahOffer] = useState<UmrahOffer>(() => loadFromStorage("cms_umrahOffer", defaultUmrahOffer));
+  const [seoSettings, setSeoSettings] = useState<SeoSettings>(() => loadFromStorage("cms_seoSettings", defaultSeoSettings));
+  const [services, setServices] = useState<ServiceItem[]>(() => loadFromStorage("cms_services", defaultServices));
+  const [footerContent, setFooterContent] = useState<FooterContent>(() => loadFromStorage("cms_footerContent", defaultFooterContent));
+  const [contactCta, setContactCta] = useState<ContactCtaContent>(() => loadFromStorage("cms_contactCta", defaultContactCta));
 
   useEffect(() => { localStorage.setItem("cms_settings", JSON.stringify(settings)); }, [settings]);
   useEffect(() => { localStorage.setItem("cms_pageContent", JSON.stringify(pageContent)); }, [pageContent]);
@@ -70,41 +86,43 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => { localStorage.setItem("cms_stats", JSON.stringify(stats)); }, [stats]);
   useEffect(() => { localStorage.setItem("cms_flightRoutes", JSON.stringify(flightRoutes)); }, [flightRoutes]);
   useEffect(() => { localStorage.setItem("cms_umrahOffer", JSON.stringify(umrahOffer)); }, [umrahOffer]);
-
-  const updateSettings = (s: SiteSettings) => setSettings(s);
-  const updatePageContent = (p: PageContent) => setPageContent(p);
-  const updateVisaRates = (v: VisaRate[]) => setVisaRates(v);
-  const updatePackages = (p: Package[]) => setPackages(p);
-  const addBooking = (b: Booking) => setBookings((prev) => [...prev, b]);
-  const updateBooking = (id: string, updates: Partial<Booking>) =>
-    setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, ...updates } : b)));
-  const deleteBooking = (id: string) => setBookings((prev) => prev.filter((b) => b.id !== id));
-  const addPackage = (p: Package) => setPackages((prev) => [...prev, p]);
-  const deletePackage = (id: string) => setPackages((prev) => prev.filter((p) => p.id !== id));
-  const addVisaRate = (v: VisaRate) => setVisaRates((prev) => [...prev, v]);
-  const deleteVisaRate = (id: string) => setVisaRates((prev) => prev.filter((v) => v.id !== id));
-  const updateHeroSlides = (s: HeroSlide[]) => setHeroSlides(s);
-  const addHeroSlide = (s: HeroSlide) => setHeroSlides((prev) => [...prev, s]);
-  const deleteHeroSlide = (id: string) => setHeroSlides((prev) => prev.filter((s) => s.id !== id));
-  const updateStats = (s: StatItem[]) => setStats(s);
-  const addStat = (s: StatItem) => setStats((prev) => [...prev, s]);
-  const deleteStat = (id: string) => setStats((prev) => prev.filter((s) => s.id !== id));
-  const updateFlightRoutes = (r: FlightRoute[]) => setFlightRoutes(r);
-  const addFlightRoute = (r: FlightRoute) => setFlightRoutes((prev) => [...prev, r]);
-  const deleteFlightRoute = (id: string) => setFlightRoutes((prev) => prev.filter((r) => r.id !== id));
-  const updateUmrahOffer = (o: UmrahOffer) => setUmrahOffer(o);
+  useEffect(() => { localStorage.setItem("cms_seoSettings", JSON.stringify(seoSettings)); }, [seoSettings]);
+  useEffect(() => { localStorage.setItem("cms_services", JSON.stringify(services)); }, [services]);
+  useEffect(() => { localStorage.setItem("cms_footerContent", JSON.stringify(footerContent)); }, [footerContent]);
+  useEffect(() => { localStorage.setItem("cms_contactCta", JSON.stringify(contactCta)); }, [contactCta]);
 
   return (
     <CmsContext.Provider value={{
       settings, pageContent, visaRates, packages, bookings,
       heroSlides, stats, flightRoutes, umrahOffer,
-      updateSettings, updatePageContent, updateVisaRates, updatePackages,
-      addBooking, updateBooking, deleteBooking, addPackage, deletePackage,
-      addVisaRate, deleteVisaRate,
-      updateHeroSlides, addHeroSlide, deleteHeroSlide,
-      updateStats, addStat, deleteStat,
-      updateFlightRoutes, addFlightRoute, deleteFlightRoute,
-      updateUmrahOffer,
+      seoSettings, services, footerContent, contactCta,
+      updateSettings: setSettings,
+      updatePageContent: setPageContent,
+      updateVisaRates: setVisaRates,
+      updatePackages: setPackages,
+      addBooking: (b) => setBookings((prev) => [...prev, b]),
+      updateBooking: (id, updates) => setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, ...updates } : b))),
+      deleteBooking: (id) => setBookings((prev) => prev.filter((b) => b.id !== id)),
+      addPackage: (p) => setPackages((prev) => [...prev, p]),
+      deletePackage: (id) => setPackages((prev) => prev.filter((p) => p.id !== id)),
+      addVisaRate: (v) => setVisaRates((prev) => [...prev, v]),
+      deleteVisaRate: (id) => setVisaRates((prev) => prev.filter((v) => v.id !== id)),
+      updateHeroSlides: setHeroSlides,
+      addHeroSlide: (s) => setHeroSlides((prev) => [...prev, s]),
+      deleteHeroSlide: (id) => setHeroSlides((prev) => prev.filter((s) => s.id !== id)),
+      updateStats: setStats,
+      addStat: (s) => setStats((prev) => [...prev, s]),
+      deleteStat: (id) => setStats((prev) => prev.filter((s) => s.id !== id)),
+      updateFlightRoutes: setFlightRoutes,
+      addFlightRoute: (r) => setFlightRoutes((prev) => [...prev, r]),
+      deleteFlightRoute: (id) => setFlightRoutes((prev) => prev.filter((r) => r.id !== id)),
+      updateUmrahOffer: setUmrahOffer,
+      updateSeoSettings: setSeoSettings,
+      updateServices: setServices,
+      addService: (s) => setServices((prev) => [...prev, s]),
+      deleteService: (id) => setServices((prev) => prev.filter((s) => s.id !== id)),
+      updateFooterContent: setFooterContent,
+      updateContactCta: setContactCta,
     }}>
       {children}
     </CmsContext.Provider>
@@ -115,36 +133,25 @@ export const useCms = () => {
   const ctx = useContext(CmsContext);
   if (!ctx) {
     return {
-      settings: defaultSettings,
-      pageContent: defaultPageContent,
-      visaRates: defaultVisaRates,
-      packages: defaultPackages,
-      bookings: [] as Booking[],
-      heroSlides: defaultHeroSlides,
-      stats: defaultStats,
-      flightRoutes: defaultFlightRoutes,
-      umrahOffer: defaultUmrahOffer,
-      updateSettings: () => {},
-      updatePageContent: () => {},
-      updateVisaRates: () => {},
-      updatePackages: () => {},
-      addBooking: () => {},
-      updateBooking: () => {},
-      deleteBooking: () => {},
-      addPackage: () => {},
-      deletePackage: () => {},
-      addVisaRate: () => {},
-      deleteVisaRate: () => {},
-      updateHeroSlides: () => {},
-      addHeroSlide: () => {},
-      deleteHeroSlide: () => {},
-      updateStats: () => {},
-      addStat: () => {},
-      deleteStat: () => {},
-      updateFlightRoutes: () => {},
-      addFlightRoute: () => {},
-      deleteFlightRoute: () => {},
+      settings: defaultSettings, pageContent: defaultPageContent,
+      visaRates: defaultVisaRates, packages: defaultPackages,
+      bookings: [] as Booking[], heroSlides: defaultHeroSlides,
+      stats: defaultStats, flightRoutes: defaultFlightRoutes,
+      umrahOffer: defaultUmrahOffer, seoSettings: defaultSeoSettings,
+      services: defaultServices, footerContent: defaultFooterContent,
+      contactCta: defaultContactCta,
+      updateSettings: () => {}, updatePageContent: () => {},
+      updateVisaRates: () => {}, updatePackages: () => {},
+      addBooking: () => {}, updateBooking: () => {}, deleteBooking: () => {},
+      addPackage: () => {}, deletePackage: () => {},
+      addVisaRate: () => {}, deleteVisaRate: () => {},
+      updateHeroSlides: () => {}, addHeroSlide: () => {}, deleteHeroSlide: () => {},
+      updateStats: () => {}, addStat: () => {}, deleteStat: () => {},
+      updateFlightRoutes: () => {}, addFlightRoute: () => {}, deleteFlightRoute: () => {},
       updateUmrahOffer: () => {},
+      updateSeoSettings: () => {}, updateServices: () => {},
+      addService: () => {}, deleteService: () => {},
+      updateFooterContent: () => {}, updateContactCta: () => {},
     } as CmsContextType;
   }
   return ctx;

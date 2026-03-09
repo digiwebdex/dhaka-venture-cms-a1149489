@@ -117,6 +117,48 @@ export interface UmrahOffer {
   featuresBn: string[];
 }
 
+export interface SeoSettings {
+  metaTitle: string;
+  metaTitleBn: string;
+  metaDescription: string;
+  metaDescriptionBn: string;
+  ogImage: string;
+  keywords: string;
+  keywordsBn: string;
+  canonicalUrl: string;
+  googleAnalyticsId: string;
+  facebookPixelId: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  icon: string;
+  titleEn: string;
+  titleBn: string;
+  descEn: string;
+  descBn: string;
+  link: string;
+  image: string;
+}
+
+export interface FooterContent {
+  descriptionEn: string;
+  descriptionBn: string;
+  copyrightEn: string;
+  copyrightBn: string;
+  developerName: string;
+  developerUrl: string;
+}
+
+export interface ContactCtaContent {
+  badgeEn: string;
+  badgeBn: string;
+  titleEn: string;
+  titleBn: string;
+  subtitleEn: string;
+  subtitleBn: string;
+}
+
 export const defaultSettings: SiteSettings = {
   companyName: "Prime Sky International",
   companyNameBn: "প্রাইম স্কাই ইন্টারন্যাশনাল",
@@ -143,6 +185,44 @@ export const defaultPageContent: PageContent = {
   missionTextBn: "সাশ্রয়ী মূল্যে মানসম্মত ভ্রমণ সেবা প্রদান করা এবং প্রতিটি গ্রাহকের যাত্রাকে স্মরণীয় করে তোলা।",
   visionText: "To become the most trusted and popular travel agency in Bangladesh.",
   visionTextBn: "বাংলাদেশের সবচেয়ে বিশ্বস্ত ও জনপ্রিয় ট্রাভেল এজেন্সি হিসেবে প্রতিষ্ঠিত হওয়া।",
+};
+
+export const defaultSeoSettings: SeoSettings = {
+  metaTitle: "Prime Sky International | আপনার যাত্রা, আমাদের অগ্রাধিকার",
+  metaTitleBn: "প্রাইম স্কাই ইন্টারন্যাশনাল | আপনার যাত্রা, আমাদের অগ্রাধিকার",
+  metaDescription: "Prime Sky International - Hajj & Umrah, Tour Packages, Air Tickets and Hotel Booking Services. Your Journey, Our Priority.",
+  metaDescriptionBn: "প্রাইম স্কাই ইন্টারন্যাশনাল - হজ্জ ও উমরাহ, ট্যুর প্যাকেজ, এয়ার টিকেট এবং হোটেল বুকিং সেবা।",
+  ogImage: "https://storage.googleapis.com/gpt-engineer-file-uploads/PQPrdFGLf2h7j69joxFbm8SJlBp2/social-images/social-1772824219999-logo_prime.webp",
+  keywords: "hajj, umrah, tour packages, air ticket, hotel booking, visa processing, bangladesh, travel agency, dhaka",
+  keywordsBn: "হজ্জ, উমরাহ, ট্যুর প্যাকেজ, এয়ার টিকেট, হোটেল বুকিং, ভিসা প্রসেসিং, বাংলাদেশ",
+  canonicalUrl: "https://primeskyintl.com",
+  googleAnalyticsId: "",
+  facebookPixelId: "",
+};
+
+export const defaultServices: ServiceItem[] = [
+  { id: "1", icon: "Star", titleEn: "Hajj & Umrah", titleBn: "হজ্জ ও উমরাহ", descEn: "Complete packages for holy Hajj & Umrah tours. All responsibilities including visa processing are ours.", descBn: "পবিত্র হজ্জ ও উমরাহ সফরের জন্য সম্পূর্ণ প্যাকেজ। ভিসা প্রসেসিং সহ সকল দায়িত্ব আমাদের।", link: "/services/hajj-umrah", image: "" },
+  { id: "2", icon: "MapPin", titleEn: "Tour Packages", titleBn: "ট্যুর প্যাকেজ", descEn: "Attractive tour packages domestic and international. Cox's Bazar, Thailand, Dubai and many more destinations.", descBn: "দেশ-বিদেশে আকর্ষণীয় ট্যুর প্যাকেজ। কক্সবাজার, থাইল্যান্ড, দুবাই সহ আরও অনেক গন্তব্য।", link: "/services/tour-packages", image: "" },
+  { id: "3", icon: "Plane", titleEn: "Air Ticket", titleBn: "এয়ার টিকেট", descEn: "Best priced domestic and international air tickets. Dubai, Malaysia, Saudi Arabia, India.", descBn: "সেরা দামে ঘরোয়া ও আন্তর্জাতিক এয়ার টিকেট। দুবাই, মালয়েশিয়া, সৌদি, ভারত।", link: "/services/air-ticket", image: "" },
+  { id: "4", icon: "Hotel", titleEn: "Hotel Booking", titleBn: "হোটেল বুকিং", descEn: "Booking service at the best hotels worldwide. Quality accommodation at affordable prices.", descBn: "বিশ্বজুড়ে সেরা হোটেলে বুকিং সেবা। সাশ্রয়ী মূল্যে মানসম্মত থাকার ব্যবস্থা।", link: "/services/hotel-booking", image: "" },
+];
+
+export const defaultFooterContent: FooterContent = {
+  descriptionEn: "A reliable travel agency in Bangladesh. Hajj & Umrah, Tour Packages, Air Tickets and Hotel Booking services.",
+  descriptionBn: "বাংলাদেশের একটি নির্ভরযোগ্য ট্রাভেল এজেন্সি। হজ্জ ও উমরাহ, ট্যুর প্যাকেজ, এয়ার টিকেট এবং হোটেল বুকিং সেবা।",
+  copyrightEn: "All Rights Reserved",
+  copyrightBn: "সর্বস্বত্ব সংরক্ষিত",
+  developerName: "Digiwebdex",
+  developerUrl: "https://digiwebdex.com/",
+};
+
+export const defaultContactCta: ContactCtaContent = {
+  badgeEn: "Get in Touch",
+  badgeBn: "যোগাযোগ",
+  titleEn: "Contact Us Today",
+  titleBn: "আজই যোগাযোগ করুন",
+  subtitleEn: "Contact us to plan your dream trip",
+  subtitleBn: "আপনার স্বপ্নের ভ্রমণ পরিকল্পনা করতে আমাদের সাথে যোগাযোগ করুন",
 };
 
 export const defaultHeroSlides: HeroSlide[] = [
