@@ -4,7 +4,7 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star } from "lucide-react";
+import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom } from "lucide-react";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "primesky2025";
@@ -58,13 +58,16 @@ const AdminLayout = () => {
   const menuItems = [
     { path: "/admin", icon: LayoutDashboard, label: t.admin.dashboard },
     { path: "/admin/hero-slides", icon: Image, label: "Hero Slides" },
+    { path: "/admin/services", icon: Layers, label: "Services Section" },
     { path: "/admin/content", icon: FileText, label: t.admin.manageContent },
     { path: "/admin/packages", icon: Package, label: t.admin.managePackages },
     { path: "/admin/visa", icon: Globe, label: t.admin.manageVisa },
     { path: "/admin/flight-offers", icon: Plane, label: "Flight Offers" },
     { path: "/admin/umrah-offer", icon: Star, label: "Umrah Offer" },
     { path: "/admin/stats", icon: BarChart3, label: "Stats Section" },
+    { path: "/admin/footer", icon: PanelBottom, label: "Footer & CTA" },
     { path: "/admin/bookings", icon: BookOpen, label: t.admin.manageBookings },
+    { path: "/admin/seo", icon: Search, label: "SEO Settings" },
     { path: "/admin/settings", icon: Settings, label: t.admin.settings },
   ];
 
