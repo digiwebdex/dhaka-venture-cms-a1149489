@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
-import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plane } from "lucide-react";
 import { images } from "@/assets/images";
+import BookingFormDialog from "@/components/BookingFormDialog";
 
 const AirTicketPage = () => {
   const { t, lang } = useLang();
-  const whatsappLink = useWhatsAppLink();
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedPkg, setSelectedPkg] = useState("");
 
   const destinations = [
     { name: "Dubai", nameBn: "দুবাই", img: images.dubai },
@@ -39,14 +41,15 @@ const AirTicketPage = () => {
               </div>
               <CardContent className="p-5 text-center">
                 <h3 className="font-bold text-lg mb-3">{lang === "bn" ? dest.nameBn : dest.name}</h3>
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                  <Button variant="gold">{t.nav.bookNow}</Button>
-                </a>
+                <Button variant="gold" onClick={() => { setSelectedPkg(`Air Ticket - ${lang === "bn" ? dest.nameBn : dest.name}`); setBookingOpen(true); }}>
+                  {t.nav.bookNow}
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
+      <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
     </div>
   );
 };
