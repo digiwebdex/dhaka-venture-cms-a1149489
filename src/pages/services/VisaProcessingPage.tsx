@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
-import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FileCheck } from "lucide-react";
+import BookingFormDialog from "@/components/BookingFormDialog";
 
 const VisaProcessingPage = () => {
   const { t, lang } = useLang();
   const { visaRates } = useCms();
-  const whatsappLink = useWhatsAppLink();
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedPkg, setSelectedPkg] = useState("");
 
   return (
     <div className="py-16">
@@ -28,6 +30,7 @@ const VisaProcessingPage = () => {
                 <TableHead className="text-primary-foreground font-bold">{t.visa.country}</TableHead>
                 <TableHead className="text-primary-foreground font-bold">{t.visa.type}</TableHead>
                 <TableHead className="text-primary-foreground font-bold text-right">{t.visa.rate}</TableHead>
+                <TableHead className="text-primary-foreground font-bold text-center">{t.nav.bookNow}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -36,19 +39,18 @@ const VisaProcessingPage = () => {
                   <TableCell className="font-medium">{lang === "bn" ? visa.countryBn : visa.country}</TableCell>
                   <TableCell>{lang === "bn" ? visa.typeBn : visa.type}</TableCell>
                   <TableCell className="text-right font-semibold text-primary">{lang === "bn" ? visa.rateBn : visa.rate}</TableCell>
+                  <TableCell className="text-center">
+                    <Button size="sm" variant="gold" onClick={() => { setSelectedPkg(`Visa - ${lang === "bn" ? visa.countryBn : visa.country}`); setBookingOpen(true); }}>
+                      {t.nav.bookNow}
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </Card>
-        <div className="text-center mt-8">
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="gold" className="h-14 px-8">
-              {t.nav.bookNow}
-            </Button>
-          </a>
-        </div>
       </div>
+      <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
     </div>
   );
 };

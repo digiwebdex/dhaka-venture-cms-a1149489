@@ -1,12 +1,13 @@
+import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
-import { useWhatsAppLink } from "@/hooks/useWhatsAppLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Hotel } from "lucide-react";
+import BookingFormDialog from "@/components/BookingFormDialog";
 
 const HotelBookingPage = () => {
   const { t, lang } = useLang();
-  const whatsappLink = useWhatsAppLink();
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   return (
     <div className="py-16">
@@ -28,14 +29,13 @@ const HotelBookingPage = () => {
                 ? "বিশ্বজুড়ে সেরা হোটেলে সাশ্রয়ী মূল্যে বুকিং করুন। আমরা আপনার জন্য সবচেয়ে ভালো ডিল খুঁজে দেব।"
                 : "Book the best hotels worldwide at affordable prices. We will find the best deals for you."}
             </p>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-gold-gradient text-secondary-foreground hover:opacity-90 font-bold h-14 px-8">
-                {t.nav.bookNow}
-              </Button>
-            </a>
+            <Button size="lg" variant="gold" className="h-14 px-8" onClick={() => setBookingOpen(true)}>
+              {t.nav.bookNow}
+            </Button>
           </CardContent>
         </Card>
       </div>
+      <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={lang === "bn" ? "হোটেল বুকিং" : "Hotel Booking"} />
     </div>
   );
 };
