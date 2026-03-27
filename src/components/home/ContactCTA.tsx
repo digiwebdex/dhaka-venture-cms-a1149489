@@ -34,7 +34,7 @@ const ContactCTA = () => {
               </Button>
             </Link>
             <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/5 h-14 px-8 font-semibold rounded-full">
+              <Button size="lg" variant="outline" className="border-gold/40 text-gold hover:bg-gold/10 h-14 px-8 font-semibold rounded-full">
                 <Phone className="w-5 h-5 mr-2" />
                 WhatsApp: {settings.whatsapp}
               </Button>
