@@ -10,6 +10,14 @@ import malaysiaImg from "@/assets/images/malaysia.jpg";
 import singaporeImg from "@/assets/images/singapore.jpg";
 import hajjImg from "@/assets/images/hajj.jpg";
 
+// Extra AI-generated gallery images (per package)
+import coxsbazarSunsetImg from "@/assets/images/coxsbazar-sunset.jpg";
+import coxsbazarResortImg from "@/assets/images/coxsbazar-resort.jpg";
+import dubaiNightImg from "@/assets/images/dubai-night.jpg";
+import thailandMarketImg from "@/assets/images/thailand-market.jpg";
+import madinahMosqueImg from "@/assets/images/madinah-mosque.jpg";
+import hajjPilgrimsImg from "@/assets/images/hajj-pilgrims.jpg";
+
 export const images = {
   kaaba: kaabaImg,
   beach: beachImg,
@@ -22,4 +30,10 @@ export const images = {
   malaysia: malaysiaImg,
   singapore: singaporeImg,
   hajj: hajjImg,
+  coxsbazarSunset: coxsbazarSunsetImg,
+  coxsbazarResort: coxsbazarResortImg,
+  dubaiNight: dubaiNightImg,
+  thailandMarket: thailandMarketImg,
+  madinahMosque: madinahMosqueImg,
+  hajjPilgrims: hajjPilgrimsImg,
 };
