@@ -34,20 +34,24 @@ const AdminPackages = () => {
   const mainFileRef = useRef<HTMLInputElement>(null);
   const galleryFileRef = useRef<HTMLInputElement>(null);
 
-  const handleUpload = async (file: File, target: "main" | "gallery") => {
+  const handleUpload = async (files: File[], target: "main" | "gallery") => {
     if (!getAdminToken()) {
       toast({ title: "Admin token missing", description: "Re-login with token to upload.", variant: "destructive" });
       return;
     }
+    if (!files.length) return;
     setUploading(target);
     try {
-      const res = await apiUpload(file);
       if (target === "main") {
+        const res = await apiUpload(files[0]);
         setForm((f) => ({ ...f, image: res.url }));
+        toast({ title: "Image uploaded!" });
       } else {
-        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), res.url] }));
+        const results = await Promise.all(files.map((f) => apiUpload(f)));
+        const urls = results.map((r) => r.url);
+        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), ...urls] }));
+        toast({ title: `${urls.length} image(s) uploaded!` });
       }
-      toast({ title: "Image uploaded!" });
     } catch (e: any) {
       toast({ title: "Upload failed", description: e.message, variant: "destructive" });
     } finally {
@@ -116,7 +120,7 @@ const AdminPackages = () => {
                 type="file"
                 accept="image/*"
                 hidden
-                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "main"); e.target.value = ""; }}
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload([f], "main"); e.target.value = ""; }}
               />
               <Button type="button" variant="outline" onClick={() => mainFileRef.current?.click()} disabled={uploading === "main"} title="Upload image">
                 {uploading === "main" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
@@ -164,10 +168,11 @@ const AdminPackages = () => {
               ref={galleryFileRef}
               type="file"
               accept="image/*"
+              multiple
               hidden
-              onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "gallery"); e.target.value = ""; }}
+              onChange={(e) => { const fs = Array.from(e.target.files || []); if (fs.length) handleUpload(fs, "gallery"); e.target.value = ""; }}
             />
-            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image">
+            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image(s)">
               {uploading === "gallery" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
             </Button>
           </div>
