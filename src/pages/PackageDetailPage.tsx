@@ -15,14 +15,15 @@ const toEmbed = (url: string) => {
   return yt ? `https://www.youtube.com/embed/${yt[1]}` : url;
 };
 
-const InfoRow = ({ icon: Icon, label, value }: { icon: any; label: string; value?: string }) =>
-  value ? (
-    <div className="grid grid-cols-[auto_1fr_2fr] items-center border-b border-border last:border-b-0">
-      <div className="px-4 py-3 text-primary"><Icon className="w-5 h-5" /></div>
-      <div className="px-2 py-3 font-semibold text-foreground">{label}</div>
-      <div className="px-4 py-3 text-muted-foreground border-l border-border">{value}</div>
+const InfoRow = ({ icon: Icon, label, value }: { icon: any; label: string; value?: string }) => (
+  <div className="grid grid-cols-[auto_1fr_2fr] items-center border-b border-border last:border-b-0">
+    <div className="px-4 py-3 text-primary"><Icon className="w-5 h-5" /></div>
+    <div className="px-2 py-3 font-semibold text-foreground">{label}</div>
+    <div className="px-4 py-3 text-muted-foreground border-l border-border">
+      {value && value.trim() ? value : "—"}
     </div>
-  ) : null;
+  </div>
+);
 
 const PackageDetailPage = () => {
   const { id } = useParams();
