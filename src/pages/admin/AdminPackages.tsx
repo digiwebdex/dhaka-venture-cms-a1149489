@@ -168,10 +168,11 @@ const AdminPackages = () => {
               ref={galleryFileRef}
               type="file"
               accept="image/*"
+              multiple
               hidden
-              onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "gallery"); e.target.value = ""; }}
+              onChange={(e) => { const fs = Array.from(e.target.files || []); if (fs.length) handleUpload(fs, "gallery"); e.target.value = ""; }}
             />
-            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image">
+            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image(s)">
               {uploading === "gallery" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
             </Button>
           </div>
