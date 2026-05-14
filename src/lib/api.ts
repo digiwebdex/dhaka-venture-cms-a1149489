@@ -75,3 +75,8 @@ export async function apiUpload(file: File): Promise<{ url: string; filename: st
 // CMS key/value helpers
 export const cmsGet = <T>(key: string) => apiGet<T | null>(`/cms/${encodeURIComponent(key)}`);
 export const cmsPut = <T>(key: string, value: T) => apiPut<{ ok: boolean }>(`/cms/${encodeURIComponent(key)}`, value);
+
+// Admin login: exchanges username+password for an admin token
+export async function apiLogin(username: string, password: string): Promise<{ token: string }> {
+  return apiPost<{ token: string }>(`/login`, { username, password }, false);
+}
