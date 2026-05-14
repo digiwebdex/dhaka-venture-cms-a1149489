@@ -80,6 +80,22 @@ const AdminPackages = () => {
 
   const handleDelete = (id: string) => { deletePackage(id); toast({ title: "Package deleted!" }); };
 
+  const [dragInfo, setDragInfo] = useState<{ kind: "gallery" | "videos"; index: number } | null>(null);
+
+  const reorder = <T,>(arr: T[], from: number, to: number): T[] => {
+    const next = [...arr];
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved);
+    return next;
+  };
+
+  const handleDrop = (kind: "gallery" | "videos", to: number) => {
+    if (!dragInfo || dragInfo.kind !== kind || dragInfo.index === to) { setDragInfo(null); return; }
+    const list = (form[kind] as string[] | undefined) || [];
+    setForm({ ...form, [kind]: reorder(list, dragInfo.index, to) });
+    setDragInfo(null);
+  };
+
   const addGalleryItem = () => {
     if (!galleryInput.trim()) return;
     setForm({ ...form, gallery: [...(form.gallery || []), galleryInput.trim()] });
