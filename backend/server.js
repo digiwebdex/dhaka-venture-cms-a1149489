@@ -11,6 +11,8 @@ const PORT = Number(process.env.PORT || 3101);
 const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads');
 const PUBLIC_URL = process.env.PUBLIC_URL || '';
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASS = process.env.ADMIN_PASS || '';
 
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
@@ -29,6 +31,18 @@ function requireAdmin(req, res, next) {
 
 // --- Health ---
 app.get('/api/health', (_req, res) => res.json({ ok: true, time: new Date().toISOString() }));
+
+// --- Admin login: exchange username/password for the admin token ---
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body || {};
+  if (!ADMIN_PASS || !ADMIN_TOKEN) {
+    return res.status(500).json({ error: 'Server not configured (ADMIN_PASS / ADMIN_TOKEN missing)' });
+  }
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    return res.json({ token: ADMIN_TOKEN });
+  }
+  return res.status(401).json({ error: 'Invalid credentials' });
+});
 
 // =========================================================
 // PACKAGES (full CRUD with category filter)
