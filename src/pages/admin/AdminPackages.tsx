@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Package } from "@/data/defaultData";
-import { Trash2, Plus, X, Upload, Loader2 } from "lucide-react";
+import { Trash2, Plus, X, Upload, Loader2, GripVertical } from "lucide-react";
 import { apiUpload, getAdminToken } from "@/lib/api";
 
 const AdminPackages = () => {
@@ -79,6 +79,22 @@ const AdminPackages = () => {
   };
 
   const handleDelete = (id: string) => { deletePackage(id); toast({ title: "Package deleted!" }); };
+
+  const [dragInfo, setDragInfo] = useState<{ kind: "gallery" | "videos"; index: number } | null>(null);
+
+  const reorder = <T,>(arr: T[], from: number, to: number): T[] => {
+    const next = [...arr];
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved);
+    return next;
+  };
+
+  const handleDrop = (kind: "gallery" | "videos", to: number) => {
+    if (!dragInfo || dragInfo.kind !== kind || dragInfo.index === to) { setDragInfo(null); return; }
+    const list = (form[kind] as string[] | undefined) || [];
+    setForm({ ...form, [kind]: reorder(list, dragInfo.index, to) });
+    setDragInfo(null);
+  };
 
   const addGalleryItem = () => {
     if (!galleryInput.trim()) return;
@@ -176,10 +192,23 @@ const AdminPackages = () => {
               {uploading === "gallery" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
             </Button>
           </div>
+          <p className="text-xs text-muted-foreground mb-2">Drag images to reorder — sequence is saved with the package.</p>
           <div className="flex flex-wrap gap-2">
             {(form.gallery || []).map((src, i) => (
-              <div key={i} className="relative">
+              <div
+                key={`${src}-${i}`}
+                draggable
+                onDragStart={() => setDragInfo({ kind: "gallery", index: i })}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => handleDrop("gallery", i)}
+                onDragEnd={() => setDragInfo(null)}
+                className={`relative cursor-grab active:cursor-grabbing ${dragInfo?.kind === "gallery" && dragInfo.index === i ? "opacity-40" : ""}`}
+              >
                 <img src={src} alt="" className="w-20 h-20 object-cover rounded border" />
+                <div className="absolute top-0 left-0 bg-background/80 rounded-br p-0.5">
+                  <GripVertical className="w-3 h-3" />
+                </div>
+                <span className="absolute bottom-0 right-0 bg-primary text-primary-foreground text-[10px] px-1 rounded-tl">{i + 1}</span>
                 <button type="button" onClick={() => removeGalleryItem(i)} className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-5 h-5 flex items-center justify-center"><X className="w-3 h-3" /></button>
               </div>
             ))}
@@ -192,9 +221,20 @@ const AdminPackages = () => {
             <Input placeholder="https://youtube.com/watch?v=..." value={videoInput} onChange={(e) => setVideoInput(e.target.value)} />
             <Button type="button" onClick={addVideoItem} variant="outline"><Plus className="w-4 h-4" /></Button>
           </div>
+          <p className="text-xs text-muted-foreground mb-2">Drag rows to reorder.</p>
           <div className="space-y-1">
             {(form.videos || []).map((url, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm bg-muted px-3 py-1 rounded">
+              <div
+                key={`${url}-${i}`}
+                draggable
+                onDragStart={() => setDragInfo({ kind: "videos", index: i })}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => handleDrop("videos", i)}
+                onDragEnd={() => setDragInfo(null)}
+                className={`flex items-center gap-2 text-sm bg-muted px-3 py-1 rounded cursor-grab active:cursor-grabbing ${dragInfo?.kind === "videos" && dragInfo.index === i ? "opacity-40" : ""}`}
+              >
+                <GripVertical className="w-4 h-4 text-muted-foreground shrink-0" />
+                <span className="text-xs font-semibold w-5 shrink-0">{i + 1}.</span>
                 <span className="flex-1 truncate">{url}</span>
                 <button type="button" onClick={() => removeVideoItem(i)} className="text-destructive"><X className="w-4 h-4" /></button>
               </div>
