@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Package } from "@/data/defaultData";
 import { Trash2, Plus, X, Upload, Loader2, GripVertical } from "lucide-react";
-import { apiUpload, getAdminToken } from "@/lib/api";
+import { apiUpload, getAdminToken, setAdminToken } from "@/lib/api";
 
 const AdminPackages = () => {
   const { t } = useLang();
@@ -34,11 +34,22 @@ const AdminPackages = () => {
   const mainFileRef = useRef<HTMLInputElement>(null);
   const galleryFileRef = useRef<HTMLInputElement>(null);
 
-  const handleUpload = async (files: File[], target: "main" | "gallery") => {
-    if (!getAdminToken()) {
-      toast({ title: "Admin token missing", description: "Re-login with token to upload.", variant: "destructive" });
-      return;
+  const ensureToken = (): boolean => {
+    if (getAdminToken()) return true;
+    const entered = typeof window !== "undefined"
+      ? window.prompt("Paste your 64-char API Admin Token to enable uploads:")
+      : "";
+    if (entered && entered.trim()) {
+      setAdminToken(entered.trim());
+      toast({ title: "Admin token saved" });
+      return true;
     }
+    toast({ title: "Admin token required", description: "Upload cancelled — token not provided.", variant: "destructive" });
+    return false;
+  };
+
+  const handleUpload = async (files: File[], target: "main" | "gallery") => {
+    if (!ensureToken()) return;
     if (!files.length) return;
     setUploading(target);
     try {
