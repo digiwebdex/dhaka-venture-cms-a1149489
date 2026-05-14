@@ -377,8 +377,11 @@ export const defaultPackages: Package[] = [
     others: "Visa, Guide, Insurance", othersBn: "ভিসা, গাইড, ইন্স্যুরেন্স",
     tourDetails: "Economy Umrah package covers all essentials — visa processing, return air ticket, 3-star hotel near Haram, daily Bangladeshi meals, transport between Makkah-Madinah-Jeddah, guided ziyarat tours and 24/7 support throughout the journey.",
     tourDetailsBn: "ইকোনমি উমরাহ প্যাকেজে অন্তর্ভুক্ত — ভিসা প্রসেসিং, রিটার্ন এয়ার টিকেট, হারামের নিকটবর্তী ৩-স্টার হোটেল, প্রতিদিন বাংলাদেশি খাবার, মক্কা-মদিনা-জেদ্দার মধ্যে পরিবহন, গাইডেড জিয়ারত ট্যুর এবং পুরো যাত্রায় ২৪/৭ সাপোর্ট।",
-    gallery: [images.kaaba, images.mosque],
-    videos: [],
+    gallery: [images.kaaba, images.mosque, images.madinahMosque, images.hajjPilgrims],
+    videos: [
+      "https://www.youtube.com/watch?v=CDM7HnYHqV0",
+      "https://www.youtube.com/watch?v=h0XYjz2bzFw",
+    ],
   },
   {
     id: "2",
@@ -403,8 +406,11 @@ export const defaultPackages: Package[] = [
     others: "VIP Visa, Personal Guide, Zamzam Water", othersBn: "VIP ভিসা, ব্যক্তিগত গাইড, জমজমের পানি",
     tourDetails: "Premium Umrah experience with 5-star accommodation directly facing the Haram, private car transfers, buffet meals, dedicated guide, Taif and complete ziyarat tours, plus VIP visa processing.",
     tourDetailsBn: "প্রিমিয়াম উমরাহ অভিজ্ঞতা — হারামের সরাসরি সামনে ৫-স্টার আবাসন, প্রাইভেট কার ট্রান্সফার, বুফে খাবার, ডেডিকেটেড গাইড, তায়েফ ও সম্পূর্ণ জিয়ারত ট্যুর এবং VIP ভিসা প্রসেসিং।",
-    gallery: [images.mosque, images.kaaba],
-    videos: [],
+    gallery: [images.mosque, images.madinahMosque, images.kaaba, images.hajjPilgrims],
+    videos: [
+      "https://www.youtube.com/watch?v=h0XYjz2bzFw",
+      "https://www.youtube.com/watch?v=CDM7HnYHqV0",
+    ],
   },
   {
     id: "3",
@@ -429,8 +435,11 @@ export const defaultPackages: Package[] = [
     others: "Etc.", othersBn: "ইত্যাদি",
     tourDetails: "Travel by AC bus from Dhaka to Cox's Bazar, stay in a 3-star hotel near the beach, enjoy 9 meals during the trip, and visit famous spots like Himchori waterfall and Inani sea beach.",
     tourDetailsBn: "ঢাকা থেকে কক্সবাজার এসি বাসে যাত্রা, সমুদ্র সৈকতের কাছে ৩-স্টার হোটেলে থাকা, ভ্রমণে ৯ বেলা খাবার এবং হিমছড়ি জলপ্রপাত ও ইনানী সমুদ্র সৈকতের মতো বিখ্যাত স্থান পরিদর্শন।",
-    gallery: [images.beach],
-    videos: [],
+    gallery: [images.beach, images.coxsbazarSunset, images.coxsbazarResort, images.hotel],
+    videos: [
+      "https://www.youtube.com/watch?v=YbW9c1Fb-_Q",
+      "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
+    ],
   },
   {
     id: "4",
@@ -455,8 +464,11 @@ export const defaultPackages: Package[] = [
     others: "Visa, Guide, Airport Pickup", othersBn: "ভিসা, গাইড, এয়ারপোর্ট পিকআপ",
     tourDetails: "5-day Thailand tour covering Bangkok and Pattaya with 4-star accommodation, guided sightseeing to Coral Island, Safari World and the famous Floating Market, plus visa and airport assistance.",
     tourDetailsBn: "৫ দিনের থাইল্যান্ড ট্যুর — ব্যাংকক ও পাতায়ায় ৪-স্টার আবাসন, কোরাল আইল্যান্ড, সাফারি ওয়ার্ল্ড ও বিখ্যাত ফ্লোটিং মার্কেট গাইডেড ভ্রমণ এবং ভিসা ও এয়ারপোর্ট সহায়তা।",
-    gallery: [images.thailand],
-    videos: [],
+    gallery: [images.thailand, images.thailandMarket, images.hotel, images.airplane],
+    videos: [
+      "https://www.youtube.com/watch?v=fTjhYVN3OoI",
+      "https://www.youtube.com/watch?v=0e3GPea1Tyg",
+    ],
   },
   {
     id: "5",
@@ -481,8 +493,11 @@ export const defaultPackages: Package[] = [
     others: "Visa, Guide, Airport Transfer", othersBn: "ভিসা, গাইড, এয়ারপোর্ট ট্রান্সফার",
     tourDetails: "Discover Dubai's iconic skyline and desert in 4 days. Includes Burj Khalifa entry, full-day Dubai Mall, thrilling Desert Safari with BBQ dinner, and a luxurious Marina dhow cruise.",
     tourDetailsBn: "৪ দিনে দুবাইয়ের আইকনিক স্কাইলাইন ও মরুভূমি আবিষ্কার করুন। অন্তর্ভুক্ত — বুর্জ খলিফা প্রবেশ, পুরো দিন দুবাই মল, রোমাঞ্চকর ডেজার্ট সাফারি ও বিবিকিউ ডিনার এবং বিলাসবহুল মেরিনা ধাও ক্রুজ।",
-    gallery: [images.dubai],
-    videos: [],
+    gallery: [images.dubai, images.dubaiNight, images.hotel, images.airplane],
+    videos: [
+      "https://www.youtube.com/watch?v=2Lxn4XWjvXk",
+      "https://www.youtube.com/watch?v=GbrNQbqUgbo",
+    ],
   },
   {
     id: "6",
@@ -507,7 +522,10 @@ export const defaultPackages: Package[] = [
     others: "Visa, Trained Mualem, Insurance, Ihram Kit", othersBn: "ভিসা, প্রশিক্ষিত মুয়াল্লিম, ইন্স্যুরেন্স, এহরাম কিট",
     tourDetails: "Government-approved 2025 Hajj package with full arrangements: visa, return air ticket, hotels in Makkah & Madinah, all transport, daily meals, trained Mualem, Ihram kit and complete guidance through every ritual at Mina, Arafah and Muzdalifah.",
     tourDetailsBn: "সরকার অনুমোদিত ২০২৫ হজ্জ প্যাকেজ — ভিসা, রিটার্ন এয়ার টিকেট, মক্কা ও মদিনায় হোটেল, সকল পরিবহন, প্রতিদিন খাবার, প্রশিক্ষিত মুয়াল্লিম, এহরাম কিট এবং মিনা, আরাফা ও মুজদালিফার প্রতিটি আনুষ্ঠানিকতায় সম্পূর্ণ গাইডেন্স।",
-    gallery: [images.hajj, images.kaaba, images.mosque],
-    videos: [],
+    gallery: [images.hajj, images.hajjPilgrims, images.kaaba, images.madinahMosque],
+    videos: [
+      "https://www.youtube.com/watch?v=CDM7HnYHqV0",
+      "https://www.youtube.com/watch?v=h0XYjz2bzFw",
+    ],
   },
 ];
