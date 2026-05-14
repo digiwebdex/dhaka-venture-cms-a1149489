@@ -109,7 +109,19 @@ const AdminPackages = () => {
             <Input placeholder="Duration (BN)" value={form.durationBn} onChange={(e) => setForm({ ...form, durationBn: e.target.value })} />
             <Input placeholder="Price (EN)" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             <Input placeholder="Price (BN)" value={form.priceBn} onChange={(e) => setForm({ ...form, priceBn: e.target.value })} />
-            <Input placeholder="Main Image URL" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} />
+            <div className="flex gap-2 md:col-span-1">
+              <Input placeholder="Main Image URL" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} />
+              <input
+                ref={mainFileRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "main"); e.target.value = ""; }}
+              />
+              <Button type="button" variant="outline" onClick={() => mainFileRef.current?.click()} disabled={uploading === "main"} title="Upload image">
+                {uploading === "main" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+              </Button>
+            </div>
             <Select value={form.category} onValueChange={(v: "umrah" | "tour" | "hajj") => setForm({ ...form, category: v })}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
