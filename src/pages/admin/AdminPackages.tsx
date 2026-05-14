@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Package } from "@/data/defaultData";
-import { Trash2, Plus, X } from "lucide-react";
+import { Trash2, Plus, X, Upload, Loader2 } from "lucide-react";
+import { apiUpload, getAdminToken } from "@/lib/api";
 
 const AdminPackages = () => {
   const { t } = useLang();
