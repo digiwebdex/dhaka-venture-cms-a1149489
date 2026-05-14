@@ -33,16 +33,15 @@ const TourPackagesPage = () => {
                 <p className="text-sm text-muted-foreground mb-3">{lang === "bn" ? pkg.descriptionBn : pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-extrabold text-primary">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
-                  <Button size="sm" variant="gold" onClick={() => { setSelectedPkg(lang === "bn" ? pkg.titleBn : pkg.title); setBookingOpen(true); }}>
-                    {t.nav.bookNow}
-                  </Button>
+                  <Link to={`/packages/${pkg.id}`}>
+                    <Button size="sm" variant="gold">{t.nav.viewDetails}</Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
-      <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
     </div>
   );
 };
