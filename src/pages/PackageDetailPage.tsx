@@ -50,6 +50,7 @@ const PackageDetailPage = () => {
         infoTitle: "প্যাকেজের তথ্য", book: "বুকিং করুন",
         viewItinerary: "ট্যুরের বিস্তারিত সূচি দেখুন", back: "সব প্যাকেজ",
         perPerson: "জন প্রতি",
+        media: "ছবি ও ভিডিও", viewMedia: "ছবি ও ভিডিও দেখুন",
         f1t: "নিরাপদ ভ্রমণ", f1d: "নিরাপত্তাই আমাদের প্রথম অগ্রাধিকার",
         f2t: "অভিজ্ঞ টিম", f2d: "দক্ষ ও অভিজ্ঞ টিম সার্ভিস",
         f3t: "সুস্বাদু খাবার", f3d: "পরিচ্ছন্ন ও মানসম্মত খাবার",
@@ -62,11 +63,16 @@ const PackageDetailPage = () => {
         infoTitle: "Package Information", book: "Book Now",
         viewItinerary: "View Detailed Itinerary", back: "All Packages",
         perPerson: "per person",
+        media: "Photos & Videos", viewMedia: "View Photos & Videos",
         f1t: "Safe Travel", f1d: "Safety is our first priority",
         f2t: "Expert Team", f2d: "Skilled & experienced team",
         f3t: "Tasty Food", f3d: "Clean & quality meals",
         f4t: "Best Service", f4d: "Your satisfaction is our goal",
       };
+
+  const hasGallery = pkg.gallery && pkg.gallery.length > 0;
+  const hasVideos = pkg.videos && pkg.videos.length > 0;
+  const hasMedia = hasGallery || hasVideos;
 
   return (
     <div className="py-10 bg-muted/20">
