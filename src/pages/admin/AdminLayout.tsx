@@ -4,7 +4,8 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom } from "lucide-react";
+import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, KeyRound } from "lucide-react";
+import { getAdminToken, setAdminToken } from "@/lib/api";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "primesky2025";
@@ -15,12 +16,14 @@ const AdminLayout = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [adminToken, setAdminTokenInput] = useState(() => getAdminToken());
   const [error, setError] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (username === ADMIN_USER && password === ADMIN_PASS) {
+      if (adminToken.trim()) setAdminToken(adminToken.trim());
       sessionStorage.setItem("admin_auth", "true");
       setAuthed(true);
       setError("");
@@ -46,6 +49,18 @@ const AdminLayout = () => {
             <form onSubmit={handleLogin} className="space-y-4">
               <Input placeholder={t.admin.username} value={username} onChange={(e) => setUsername(e.target.value)} required />
               <Input type="password" placeholder={t.admin.password} value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <KeyRound className="w-3.5 h-3.5" />
+                  <span>API Admin Token (saves CMS changes to server)</span>
+                </div>
+                <Input
+                  type="password"
+                  placeholder="Paste 64-char admin token"
+                  value={adminToken}
+                  onChange={(e) => setAdminTokenInput(e.target.value)}
+                />
+              </div>
               {error && <p className="text-destructive text-sm">{error}</p>}
               <Button type="submit" className="w-full bg-primary text-primary-foreground font-semibold h-11">{t.admin.login}</Button>
             </form>

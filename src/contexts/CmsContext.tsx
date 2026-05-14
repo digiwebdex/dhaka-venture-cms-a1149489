@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from "react";
 import {
   SiteSettings, PageContent, VisaRate, Package, Booking,
   HeroSlide, StatItem, FlightRoute, UmrahOffer,
@@ -7,6 +7,7 @@ import {
   defaultHeroSlides, defaultStats, defaultFlightRoutes, defaultUmrahOffer,
   defaultSeoSettings, defaultServices, defaultFooterContent, defaultContactCta,
 } from "@/data/defaultData";
+import { cmsGet, cmsPut, getAdminToken } from "@/lib/api";
 
 interface CmsContextType {
   settings: SiteSettings;
@@ -22,6 +23,7 @@ interface CmsContextType {
   services: ServiceItem[];
   footerContent: FooterContent;
   contactCta: ContactCtaContent;
+  loaded: boolean;
   updateSettings: (s: SiteSettings) => void;
   updatePageContent: (p: PageContent) => void;
   updateVisaRates: (v: VisaRate[]) => void;
@@ -53,49 +55,128 @@ interface CmsContextType {
 
 const CmsContext = createContext<CmsContextType | undefined>(undefined);
 
-function loadFromStorage<T>(key: string, fallback: T): T {
+// localStorage acts as offline cache + initial paint before API resolves
+function loadCache<T>(key: string, fallback: T): T {
   try {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : fallback;
+    const data = typeof window !== "undefined" ? localStorage.getItem(key) : null;
+    return data ? (JSON.parse(data) as T) : fallback;
   } catch {
     return fallback;
   }
 }
+function saveCache<T>(key: string, value: T) {
+  try {
+    if (typeof window !== "undefined") localStorage.setItem(key, JSON.stringify(value));
+  } catch { /* quota */ }
+}
+
+// Map of state key → backend cms key
+const KEYS = {
+  settings: "settings",
+  pageContent: "pageContent",
+  visaRates: "visaRates",
+  packages: "packages",
+  heroSlides: "heroSlides",
+  stats: "stats",
+  flightRoutes: "flightRoutes",
+  umrahOffer: "umrahOffer",
+  seoSettings: "seoSettings",
+  services: "services",
+  footerContent: "footerContent",
+  contactCta: "contactCta",
+} as const;
+
+// Hook that hydrates from API once and saves writes back to API (debounced).
+function useApiState<T>(cmsKey: string, fallback: T, hydrated: boolean): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const cacheKey = `cms_${cmsKey}`;
+  const [value, setValue] = useState<T>(() => loadCache<T>(cacheKey, fallback));
+  const skipNextSave = useRef(true); // skip first save (initial hydration)
+  const timer = useRef<number | null>(null);
+
+  // Save to cache + API on change (debounced)
+  useEffect(() => {
+    saveCache(cacheKey, value);
+    if (!hydrated) return; // don't write during initial hydration
+    if (skipNextSave.current) { skipNextSave.current = false; return; }
+    if (timer.current) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => {
+      // Only attempt API write if admin token present (public visitors stay read-only)
+      if (!getAdminToken()) return;
+      cmsPut(cmsKey, value).catch((e) => console.warn(`[cms] save ${cmsKey} failed:`, e.message));
+    }, 400);
+    return () => { if (timer.current) window.clearTimeout(timer.current); };
+  }, [value, cmsKey, cacheKey, hydrated]);
+
+  return [value, setValue];
+}
 
 export const CmsProvider = ({ children }: { children: ReactNode }) => {
-  const [settings, setSettings] = useState<SiteSettings>(() => loadFromStorage("cms_settings", defaultSettings));
-  const [pageContent, setPageContent] = useState<PageContent>(() => loadFromStorage("cms_pageContent", defaultPageContent));
-  const [visaRates, setVisaRates] = useState<VisaRate[]>(() => loadFromStorage("cms_visaRates", defaultVisaRates));
-  const [packages, setPackages] = useState<Package[]>(() => loadFromStorage("cms_packages", defaultPackages));
-  const [bookings, setBookings] = useState<Booking[]>(() => loadFromStorage("cms_bookings", []));
-  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>(() => loadFromStorage("cms_heroSlides", defaultHeroSlides));
-  const [stats, setStats] = useState<StatItem[]>(() => loadFromStorage("cms_stats", defaultStats));
-  const [flightRoutes, setFlightRoutes] = useState<FlightRoute[]>(() => loadFromStorage("cms_flightRoutes", defaultFlightRoutes));
-  const [umrahOffer, setUmrahOffer] = useState<UmrahOffer>(() => loadFromStorage("cms_umrahOffer", defaultUmrahOffer));
-  const [seoSettings, setSeoSettings] = useState<SeoSettings>(() => loadFromStorage("cms_seoSettings", defaultSeoSettings));
-  const [services, setServices] = useState<ServiceItem[]>(() => loadFromStorage("cms_services", defaultServices));
-  const [footerContent, setFooterContent] = useState<FooterContent>(() => loadFromStorage("cms_footerContent", defaultFooterContent));
-  const [contactCta, setContactCta] = useState<ContactCtaContent>(() => loadFromStorage("cms_contactCta", defaultContactCta));
+  const [hydrated, setHydrated] = useState(false);
 
-  useEffect(() => { localStorage.setItem("cms_settings", JSON.stringify(settings)); }, [settings]);
-  useEffect(() => { localStorage.setItem("cms_pageContent", JSON.stringify(pageContent)); }, [pageContent]);
-  useEffect(() => { localStorage.setItem("cms_visaRates", JSON.stringify(visaRates)); }, [visaRates]);
-  useEffect(() => { localStorage.setItem("cms_packages", JSON.stringify(packages)); }, [packages]);
-  useEffect(() => { localStorage.setItem("cms_bookings", JSON.stringify(bookings)); }, [bookings]);
-  useEffect(() => { localStorage.setItem("cms_heroSlides", JSON.stringify(heroSlides)); }, [heroSlides]);
-  useEffect(() => { localStorage.setItem("cms_stats", JSON.stringify(stats)); }, [stats]);
-  useEffect(() => { localStorage.setItem("cms_flightRoutes", JSON.stringify(flightRoutes)); }, [flightRoutes]);
-  useEffect(() => { localStorage.setItem("cms_umrahOffer", JSON.stringify(umrahOffer)); }, [umrahOffer]);
-  useEffect(() => { localStorage.setItem("cms_seoSettings", JSON.stringify(seoSettings)); }, [seoSettings]);
-  useEffect(() => { localStorage.setItem("cms_services", JSON.stringify(services)); }, [services]);
-  useEffect(() => { localStorage.setItem("cms_footerContent", JSON.stringify(footerContent)); }, [footerContent]);
-  useEffect(() => { localStorage.setItem("cms_contactCta", JSON.stringify(contactCta)); }, [contactCta]);
+  const [settings, setSettings] = useApiState<SiteSettings>(KEYS.settings, defaultSettings, hydrated);
+  const [pageContent, setPageContent] = useApiState<PageContent>(KEYS.pageContent, defaultPageContent, hydrated);
+  const [visaRates, setVisaRates] = useApiState<VisaRate[]>(KEYS.visaRates, defaultVisaRates, hydrated);
+  const [packages, setPackages] = useApiState<Package[]>(KEYS.packages, defaultPackages, hydrated);
+  const [heroSlides, setHeroSlides] = useApiState<HeroSlide[]>(KEYS.heroSlides, defaultHeroSlides, hydrated);
+  const [stats, setStats] = useApiState<StatItem[]>(KEYS.stats, defaultStats, hydrated);
+  const [flightRoutes, setFlightRoutes] = useApiState<FlightRoute[]>(KEYS.flightRoutes, defaultFlightRoutes, hydrated);
+  const [umrahOffer, setUmrahOffer] = useApiState<UmrahOffer>(KEYS.umrahOffer, defaultUmrahOffer, hydrated);
+  const [seoSettings, setSeoSettings] = useApiState<SeoSettings>(KEYS.seoSettings, defaultSeoSettings, hydrated);
+  const [services, setServices] = useApiState<ServiceItem[]>(KEYS.services, defaultServices, hydrated);
+  const [footerContent, setFooterContent] = useApiState<FooterContent>(KEYS.footerContent, defaultFooterContent, hydrated);
+  const [contactCta, setContactCta] = useApiState<ContactCtaContent>(KEYS.contactCta, defaultContactCta, hydrated);
+
+  // Bookings stay localStorage-only for now (booking form already pushes to WhatsApp)
+  const [bookings, setBookings] = useState<Booking[]>(() => loadCache<Booking[]>("cms_bookings", []));
+  useEffect(() => { saveCache("cms_bookings", bookings); }, [bookings]);
+
+  // Hydrate from API on mount — fetch all keys in parallel.
+  // If a key returns null (not yet stored), keep cache/default value.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const results = await Promise.allSettled([
+          cmsGet<SiteSettings>(KEYS.settings),
+          cmsGet<PageContent>(KEYS.pageContent),
+          cmsGet<VisaRate[]>(KEYS.visaRates),
+          cmsGet<Package[]>(KEYS.packages),
+          cmsGet<HeroSlide[]>(KEYS.heroSlides),
+          cmsGet<StatItem[]>(KEYS.stats),
+          cmsGet<FlightRoute[]>(KEYS.flightRoutes),
+          cmsGet<UmrahOffer>(KEYS.umrahOffer),
+          cmsGet<SeoSettings>(KEYS.seoSettings),
+          cmsGet<ServiceItem[]>(KEYS.services),
+          cmsGet<FooterContent>(KEYS.footerContent),
+          cmsGet<ContactCtaContent>(KEYS.contactCta),
+        ]);
+        if (cancelled) return;
+        const setters = [
+          setSettings, setPageContent, setVisaRates, setPackages,
+          setHeroSlides, setStats, setFlightRoutes, setUmrahOffer,
+          setSeoSettings, setServices, setFooterContent, setContactCta,
+        ];
+        results.forEach((r, i) => {
+          if (r.status === "fulfilled" && r.value != null) {
+            (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(r.value);
+          }
+        });
+      } catch (e) {
+        console.warn("[cms] hydration failed, using cache/defaults:", e);
+      } finally {
+        if (!cancelled) setHydrated(true);
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CmsContext.Provider value={{
       settings, pageContent, visaRates, packages, bookings,
       heroSlides, stats, flightRoutes, umrahOffer,
       seoSettings, services, footerContent, contactCta,
+      loaded: hydrated,
       updateSettings: setSettings,
       updatePageContent: setPageContent,
       updateVisaRates: setVisaRates,
@@ -140,6 +221,7 @@ export const useCms = () => {
       umrahOffer: defaultUmrahOffer, seoSettings: defaultSeoSettings,
       services: defaultServices, footerContent: defaultFooterContent,
       contactCta: defaultContactCta,
+      loaded: false,
       updateSettings: () => {}, updatePageContent: () => {},
       updateVisaRates: () => {}, updatePackages: () => {},
       addBooking: () => {}, updateBooking: () => {}, deleteBooking: () => {},
