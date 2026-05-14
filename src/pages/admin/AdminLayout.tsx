@@ -4,8 +4,8 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, KeyRound } from "lucide-react";
-import { getAdminToken, setAdminToken } from "@/lib/api";
+import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, Loader2 } from "lucide-react";
+import { apiLogin, setAdminToken } from "@/lib/api";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "primesky2025";
@@ -16,24 +16,36 @@ const AdminLayout = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [adminToken, setAdminTokenInput] = useState(() => getAdminToken());
   const [error, setError] = useState("");
+  const [loggingIn, setLoggingIn] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      if (adminToken.trim()) setAdminToken(adminToken.trim());
+    if (username !== ADMIN_USER || password !== ADMIN_PASS) {
+      setError("Invalid credentials");
+      return;
+    }
+    setLoggingIn(true);
+    setError("");
+    try {
+      // Try server login to fetch real admin token (so uploads/CMS writes work)
+      const res = await apiLogin(username, password);
+      if (res?.token) setAdminToken(res.token);
+    } catch (err: any) {
+      // Server login failed — still allow local UI access, but warn user
+      console.warn("Server login failed:", err?.message);
+      setError("Logged in locally, but server token fetch failed. Uploads may not work. Check ADMIN_PASS on the VPS.");
+    } finally {
+      setLoggingIn(false);
       sessionStorage.setItem("admin_auth", "true");
       setAuthed(true);
-      setError("");
-    } else {
-      setError("Invalid credentials");
     }
   };
 
   const handleLogout = () => {
     sessionStorage.removeItem("admin_auth");
+    setAdminToken("");
     setAuthed(false);
   };
 
