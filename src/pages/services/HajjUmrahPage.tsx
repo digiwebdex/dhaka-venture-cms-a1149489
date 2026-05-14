@@ -33,9 +33,9 @@ const HajjUmrahPage = () => {
                 <p className="text-sm text-muted-foreground mb-3">{lang === "bn" ? pkg.descriptionBn : pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-extrabold text-primary">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
-                  <Button size="sm" variant="gold" onClick={() => { setSelectedPkg(lang === "bn" ? pkg.titleBn : pkg.title); setBookingOpen(true); }}>
-                    {t.nav.bookNow}
-                  </Button>
+                  <Link to={`/packages/${pkg.id}`}>
+                    <Button size="sm" variant="gold">{t.nav.viewDetails}</Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -45,7 +45,6 @@ const HajjUmrahPage = () => {
           <p className="text-center text-muted-foreground py-10">{lang === "bn" ? "শীঘ্রই আসছে..." : "Coming soon..."}</p>
         )}
       </div>
-      <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
     </div>
   );
 };
