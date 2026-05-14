@@ -120,7 +120,7 @@ const AdminPackages = () => {
                 type="file"
                 accept="image/*"
                 hidden
-                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "main"); e.target.value = ""; }}
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload([f], "main"); e.target.value = ""; }}
               />
               <Button type="button" variant="outline" onClick={() => mainFileRef.current?.click()} disabled={uploading === "main"} title="Upload image">
                 {uploading === "main" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
