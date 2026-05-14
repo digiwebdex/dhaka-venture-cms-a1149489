@@ -49,18 +49,6 @@ const AdminLayout = () => {
             <form onSubmit={handleLogin} className="space-y-4">
               <Input placeholder={t.admin.username} value={username} onChange={(e) => setUsername(e.target.value)} required />
               <Input type="password" placeholder={t.admin.password} value={password} onChange={(e) => setPassword(e.target.value)} required />
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <KeyRound className="w-3.5 h-3.5" />
-                  <span>API Admin Token (saves CMS changes to server)</span>
-                </div>
-                <Input
-                  type="password"
-                  placeholder="Paste 64-char admin token"
-                  value={adminToken}
-                  onChange={(e) => setAdminTokenInput(e.target.value)}
-                />
-              </div>
               {error && <p className="text-destructive text-sm">{error}</p>}
               <Button type="submit" className="w-full bg-primary text-primary-foreground font-semibold h-11">{t.admin.login}</Button>
             </form>
