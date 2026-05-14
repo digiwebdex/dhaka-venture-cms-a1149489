@@ -11,6 +11,7 @@ export const bn = {
     contact: "যোগাযোগ",
     packages: "প্যাকেজ ও অফার",
     bookNow: "বুকিং করুন",
+    viewDetails: "বিস্তারিত দেখুন",
     myBookings: "আমার বুকিং",
     admin: "অ্যাডমিন",
     switchLang: "English",

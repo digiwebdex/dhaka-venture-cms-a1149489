@@ -1,15 +1,12 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import BookingFormDialog from "@/components/BookingFormDialog";
 
 const PackagesPage = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
-  const [bookingOpen, setBookingOpen] = useState(false);
-  const [selectedPkg, setSelectedPkg] = useState("");
 
   return (
     <div className="py-16">
@@ -35,16 +32,14 @@ const PackagesPage = () => {
                 <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{lang === "bn" ? pkg.descriptionBn : pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-extrabold text-primary">{lang === "bn" ? pkg.priceBn : pkg.price}</span>
-                  <Button size="sm" variant="gold" onClick={() => { setSelectedPkg(lang === "bn" ? pkg.titleBn : pkg.title); setBookingOpen(true); }}>
-                    {t.nav.bookNow}
-                  </Button>
+                  <Link to={`/packages/${pkg.id}`}>
+                    <Button size="sm" variant="gold">{t.nav.viewDetails}</Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-
-        <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
       </div>
     </div>
   );

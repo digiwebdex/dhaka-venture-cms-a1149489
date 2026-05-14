@@ -25,6 +25,23 @@ export interface Package {
   image: string;
   featured: boolean;
   category: "umrah" | "tour" | "hajj";
+  // Detail page fields (all optional — added per package via admin)
+  time?: string;
+  timeBn?: string;
+  transport?: string;
+  transportBn?: string;
+  hotel?: string;
+  hotelBn?: string;
+  food?: string;
+  foodBn?: string;
+  sightSeen?: string;
+  sightSeenBn?: string;
+  others?: string;
+  othersBn?: string;
+  tourDetails?: string;
+  tourDetailsBn?: string;
+  gallery?: string[];
+  videos?: string[];
 }
 
 export interface Booking {
@@ -352,6 +369,16 @@ export const defaultPackages: Package[] = [
     image: images.kaaba,
     featured: true,
     category: "umrah",
+    time: "14 Days 13 Nights", timeBn: "১৪ দিন ১৩ রাত",
+    transport: "Return Air Ticket + AC Bus", transportBn: "রিটার্ন এয়ার টিকেট + এসি বাস",
+    hotel: "3 Star (Makkah & Madinah)", hotelBn: "৩ স্টার (মক্কা ও মদিনা)",
+    food: "3 times daily (Bangladeshi)", foodBn: "প্রতিদিন ৩ বেলা (বাংলাদেশি)",
+    sightSeen: "Ziyarat in Makkah & Madinah", sightSeenBn: "মক্কা ও মদিনায় জিয়ারত",
+    others: "Visa, Guide, Insurance", othersBn: "ভিসা, গাইড, ইন্স্যুরেন্স",
+    tourDetails: "Economy Umrah package covers all essentials — visa processing, return air ticket, 3-star hotel near Haram, daily Bangladeshi meals, transport between Makkah-Madinah-Jeddah, guided ziyarat tours and 24/7 support throughout the journey.",
+    tourDetailsBn: "ইকোনমি উমরাহ প্যাকেজে অন্তর্ভুক্ত — ভিসা প্রসেসিং, রিটার্ন এয়ার টিকেট, হারামের নিকটবর্তী ৩-স্টার হোটেল, প্রতিদিন বাংলাদেশি খাবার, মক্কা-মদিনা-জেদ্দার মধ্যে পরিবহন, গাইডেড জিয়ারত ট্যুর এবং পুরো যাত্রায় ২৪/৭ সাপোর্ট।",
+    gallery: [images.kaaba, images.mosque],
+    videos: [],
   },
   {
     id: "2",
@@ -368,6 +395,16 @@ export const defaultPackages: Package[] = [
     image: images.mosque,
     featured: true,
     category: "umrah",
+    time: "21 Days 20 Nights", timeBn: "২১ দিন ২০ রাত",
+    transport: "Return Air Ticket + Private Car", transportBn: "রিটার্ন এয়ার টিকেট + প্রাইভেট কার",
+    hotel: "5 Star (Walking distance from Haram)", hotelBn: "৫ স্টার (হারাম থেকে হাঁটা দূরত্ব)",
+    food: "Buffet 3 times daily", foodBn: "প্রতিদিন ৩ বেলা বুফে",
+    sightSeen: "Full Ziyarat + Taif Tour", sightSeenBn: "সম্পূর্ণ জিয়ারত + তায়েফ ট্যুর",
+    others: "VIP Visa, Personal Guide, Zamzam Water", othersBn: "VIP ভিসা, ব্যক্তিগত গাইড, জমজমের পানি",
+    tourDetails: "Premium Umrah experience with 5-star accommodation directly facing the Haram, private car transfers, buffet meals, dedicated guide, Taif and complete ziyarat tours, plus VIP visa processing.",
+    tourDetailsBn: "প্রিমিয়াম উমরাহ অভিজ্ঞতা — হারামের সরাসরি সামনে ৫-স্টার আবাসন, প্রাইভেট কার ট্রান্সফার, বুফে খাবার, ডেডিকেটেড গাইড, তায়েফ ও সম্পূর্ণ জিয়ারত ট্যুর এবং VIP ভিসা প্রসেসিং।",
+    gallery: [images.mosque, images.kaaba],
+    videos: [],
   },
   {
     id: "3",
@@ -384,6 +421,16 @@ export const defaultPackages: Package[] = [
     image: images.beach,
     featured: true,
     category: "tour",
+    time: "3 Day's 2 Night", timeBn: "৩ দিন ২ রাত",
+    transport: "Bus", transportBn: "বাস",
+    hotel: "3 Star", hotelBn: "৩ স্টার",
+    food: "9 Times", foodBn: "৯ বেলা",
+    sightSeen: "Himchori, Inani", sightSeenBn: "হিমছড়ি, ইনানী",
+    others: "Etc.", othersBn: "ইত্যাদি",
+    tourDetails: "Travel by AC bus from Dhaka to Cox's Bazar, stay in a 3-star hotel near the beach, enjoy 9 meals during the trip, and visit famous spots like Himchori waterfall and Inani sea beach.",
+    tourDetailsBn: "ঢাকা থেকে কক্সবাজার এসি বাসে যাত্রা, সমুদ্র সৈকতের কাছে ৩-স্টার হোটেলে থাকা, ভ্রমণে ৯ বেলা খাবার এবং হিমছড়ি জলপ্রপাত ও ইনানী সমুদ্র সৈকতের মতো বিখ্যাত স্থান পরিদর্শন।",
+    gallery: [images.beach],
+    videos: [],
   },
   {
     id: "4",
@@ -400,6 +447,16 @@ export const defaultPackages: Package[] = [
     image: images.thailand,
     featured: true,
     category: "tour",
+    time: "5 Days 4 Nights", timeBn: "৫ দিন ৪ রাত",
+    transport: "Return Air Ticket + Tour Bus", transportBn: "রিটার্ন এয়ার টিকেট + ট্যুর বাস",
+    hotel: "4 Star (Bangkok & Pattaya)", hotelBn: "৪ স্টার (ব্যাংকক ও পাতায়া)",
+    food: "Daily Breakfast", foodBn: "প্রতিদিন সকালের নাস্তা",
+    sightSeen: "Coral Island, Safari World, Floating Market", sightSeenBn: "কোরাল আইল্যান্ড, সাফারি ওয়ার্ল্ড, ফ্লোটিং মার্কেট",
+    others: "Visa, Guide, Airport Pickup", othersBn: "ভিসা, গাইড, এয়ারপোর্ট পিকআপ",
+    tourDetails: "5-day Thailand tour covering Bangkok and Pattaya with 4-star accommodation, guided sightseeing to Coral Island, Safari World and the famous Floating Market, plus visa and airport assistance.",
+    tourDetailsBn: "৫ দিনের থাইল্যান্ড ট্যুর — ব্যাংকক ও পাতায়ায় ৪-স্টার আবাসন, কোরাল আইল্যান্ড, সাফারি ওয়ার্ল্ড ও বিখ্যাত ফ্লোটিং মার্কেট গাইডেড ভ্রমণ এবং ভিসা ও এয়ারপোর্ট সহায়তা।",
+    gallery: [images.thailand],
+    videos: [],
   },
   {
     id: "5",
@@ -416,6 +473,16 @@ export const defaultPackages: Package[] = [
     image: images.dubai,
     featured: true,
     category: "tour",
+    time: "4 Days 3 Nights", timeBn: "৪ দিন ৩ রাত",
+    transport: "Return Air Ticket + AC Coach", transportBn: "রিটার্ন এয়ার টিকেট + এসি কোচ",
+    hotel: "4 Star (Downtown Dubai)", hotelBn: "৪ স্টার (ডাউনটাউন দুবাই)",
+    food: "Breakfast & Dinner", foodBn: "সকালের নাস্তা ও রাতের খাবার",
+    sightSeen: "Burj Khalifa, Dubai Mall, Desert Safari, Marina Cruise", sightSeenBn: "বুর্জ খলিফা, দুবাই মল, ডেজার্ট সাফারি, মেরিনা ক্রুজ",
+    others: "Visa, Guide, Airport Transfer", othersBn: "ভিসা, গাইড, এয়ারপোর্ট ট্রান্সফার",
+    tourDetails: "Discover Dubai's iconic skyline and desert in 4 days. Includes Burj Khalifa entry, full-day Dubai Mall, thrilling Desert Safari with BBQ dinner, and a luxurious Marina dhow cruise.",
+    tourDetailsBn: "৪ দিনে দুবাইয়ের আইকনিক স্কাইলাইন ও মরুভূমি আবিষ্কার করুন। অন্তর্ভুক্ত — বুর্জ খলিফা প্রবেশ, পুরো দিন দুবাই মল, রোমাঞ্চকর ডেজার্ট সাফারি ও বিবিকিউ ডিনার এবং বিলাসবহুল মেরিনা ধাও ক্রুজ।",
+    gallery: [images.dubai],
+    videos: [],
   },
   {
     id: "6",
@@ -432,5 +499,15 @@ export const defaultPackages: Package[] = [
     image: images.hajj,
     featured: false,
     category: "hajj",
+    time: "40 Days", timeBn: "৪০ দিন",
+    transport: "Return Air Ticket + AC Bus", transportBn: "রিটার্ন এয়ার টিকেট + এসি বাস",
+    hotel: "Makkah 3-Star + Madinah 3-Star", hotelBn: "মক্কা ৩-স্টার + মদিনা ৩-স্টার",
+    food: "3 Times Daily (Bangladeshi)", foodBn: "প্রতিদিন ৩ বেলা (বাংলাদেশি)",
+    sightSeen: "Mina, Arafah, Muzdalifah, Ziyarat", sightSeenBn: "মিনা, আরাফা, মুজদালিফা, জিয়ারত",
+    others: "Visa, Trained Mualem, Insurance, Ihram Kit", othersBn: "ভিসা, প্রশিক্ষিত মুয়াল্লিম, ইন্স্যুরেন্স, এহরাম কিট",
+    tourDetails: "Government-approved 2025 Hajj package with full arrangements: visa, return air ticket, hotels in Makkah & Madinah, all transport, daily meals, trained Mualem, Ihram kit and complete guidance through every ritual at Mina, Arafah and Muzdalifah.",
+    tourDetailsBn: "সরকার অনুমোদিত ২০২৫ হজ্জ প্যাকেজ — ভিসা, রিটার্ন এয়ার টিকেট, মক্কা ও মদিনায় হোটেল, সকল পরিবহন, প্রতিদিন খাবার, প্রশিক্ষিত মুয়াল্লিম, এহরাম কিট এবং মিনা, আরাফা ও মুজদালিফার প্রতিটি আনুষ্ঠানিকতায় সম্পূর্ণ গাইডেন্স।",
+    gallery: [images.hajj, images.kaaba, images.mosque],
+    videos: [],
   },
 ];

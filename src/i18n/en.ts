@@ -11,6 +11,7 @@ export const en = {
     contact: "Contact",
     packages: "Packages & Offers",
     bookNow: "Book Now",
+    viewDetails: "View Details",
     myBookings: "My Bookings",
     admin: "Admin",
     switchLang: "বাংলা",
