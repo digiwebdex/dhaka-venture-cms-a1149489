@@ -163,17 +163,23 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
           // automatically get gallery / videos / detail-table fields.
           if (setters[i] === setPackages && Array.isArray(value)) {
             const defaultsById = new Map(defaultPackages.map((p) => [p.id, p]));
+            // Merge stored entries with defaults: only let stored fields override
+            // when they actually have content. Empty strings / empty arrays fall
+            // back to defaults so info-table rows are never blank.
+            const pick = <T,>(stored: T, def: T): T => {
+              if (stored === undefined || stored === null) return def;
+              if (typeof stored === "string" && stored.trim() === "") return def;
+              if (Array.isArray(stored) && stored.length === 0) return def;
+              return stored;
+            };
             value = (value as Package[]).map((p) => {
               const def = defaultsById.get(p.id);
               if (!def) return p;
-              const hasGallery = Array.isArray(p.gallery) && p.gallery.length > 0;
-              const hasVideos = Array.isArray(p.videos) && p.videos.length > 0;
-              return {
-                ...def,
-                ...p,
-                gallery: hasGallery ? p.gallery : def.gallery,
-                videos: hasVideos ? p.videos : def.videos,
-              };
+              const merged: Package = { ...def, ...p };
+              (Object.keys(def) as (keyof Package)[]).forEach((k) => {
+                (merged as any)[k] = pick((p as any)[k], (def as any)[k]);
+              });
+              return merged;
             });
           }
           (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(value);
