@@ -123,62 +123,92 @@ const PackageDetailPage = () => {
               <div className="p-5 text-sm text-muted-foreground leading-relaxed">{desc}</div>
             </Card>
 
-            {/* Gallery */}
-            {pkg.gallery && pkg.gallery.length > 0 && (
-              <Card className="overflow-hidden">
-                <div className="bg-primary text-primary-foreground py-3 px-5 text-center font-bold">{L.gallery}</div>
-                <div className="p-4 grid grid-cols-2 gap-3">
-                  {pkg.gallery.slice(0, 4).map((src, i) => (
-                    <img key={i} src={src} alt={`${title} ${i + 1}`} className="w-full h-24 object-cover rounded-lg" loading="lazy" />
-                  ))}
-                </div>
-              </Card>
-            )}
-
-            {/* Videos */}
-            {pkg.videos && pkg.videos.length > 0 && (
-              <Card className="overflow-hidden">
-                <div className="bg-primary text-primary-foreground py-3 px-5 text-center font-bold">{L.videos}</div>
-                <div className="p-4 grid grid-cols-2 gap-3">
-                  {pkg.videos.slice(0, 4).map((url, i) => (
-                    <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                      <iframe
-                        src={toEmbed(url)}
-                        title={`Video ${i + 1}`}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            )}
+            {/* Info Table */}
+            <Card className="overflow-hidden">
+              <div className="bg-primary text-primary-foreground py-3 px-5 text-center font-bold text-lg">{L.infoTitle}</div>
+              <div>
+                <InfoRow icon={Calendar} label={L.time} value={isBn ? pkg.timeBn || pkg.durationBn : pkg.time || pkg.duration} />
+                <InfoRow icon={Bus} label={L.transport} value={isBn ? pkg.transportBn : pkg.transport} />
+                <InfoRow icon={Building2} label={L.hotel} value={isBn ? pkg.hotelBn : pkg.hotel} />
+                <InfoRow icon={Utensils} label={L.food} value={isBn ? pkg.foodBn : pkg.food} />
+                <InfoRow icon={Camera} label={L.sightSeen} value={isBn ? pkg.sightSeenBn : pkg.sightSeen} />
+                <InfoRow icon={Info} label={L.others} value={isBn ? pkg.othersBn : pkg.others} />
+              </div>
+            </Card>
           </div>
         </div>
 
-        {/* Info Table */}
-        <Card className="overflow-hidden mb-6">
-          <div className="bg-primary text-primary-foreground py-3 px-5 text-center font-bold text-lg">{L.infoTitle}</div>
-          <div>
-            <InfoRow icon={Calendar} label={L.time} value={isBn ? pkg.timeBn || pkg.durationBn : pkg.time || pkg.duration} />
-            <InfoRow icon={Bus} label={L.transport} value={isBn ? pkg.transportBn : pkg.transport} />
-            <InfoRow icon={Building2} label={L.hotel} value={isBn ? pkg.hotelBn : pkg.hotel} />
-            <InfoRow icon={Utensils} label={L.food} value={isBn ? pkg.foodBn : pkg.food} />
-            <InfoRow icon={Camera} label={L.sightSeen} value={isBn ? pkg.sightSeenBn : pkg.sightSeen} />
-            <InfoRow icon={Info} label={L.others} value={isBn ? pkg.othersBn : pkg.others} />
-          </div>
-        </Card>
-
-        {/* Itinerary */}
+        {/* Itinerary — comes right after About */}
         {tourDetails && (
           <Card className="mb-6">
-            <details open className="group">
+            <details className="group">
               <summary className="flex items-center justify-center gap-2 cursor-pointer py-4 px-5 text-primary font-semibold hover:bg-muted/50 rounded-lg list-none">
                 <FileText className="w-5 h-5" /> {L.viewItinerary}
               </summary>
               <div className="p-6 pt-0 text-muted-foreground whitespace-pre-line leading-relaxed border-t border-border">
                 {tourDetails}
+              </div>
+            </details>
+          </Card>
+        )}
+
+        {/* Media (Photos & Videos in tabs, collapsed by default) */}
+        {hasMedia && (
+          <Card className="mb-6 overflow-hidden">
+            <details className="group">
+              <summary className="flex items-center justify-center gap-2 cursor-pointer py-4 px-5 text-primary font-semibold hover:bg-muted/50 list-none">
+                <Images className="w-5 h-5" /> {L.viewMedia}
+              </summary>
+              <div className="p-5 border-t border-border">
+                <Tabs defaultValue={hasGallery ? "images" : "videos"} className="w-full">
+                  <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-5">
+                    {hasGallery && (
+                      <TabsTrigger value="images" className="gap-2">
+                        <Images className="w-4 h-4" /> {L.gallery}
+                      </TabsTrigger>
+                    )}
+                    {hasVideos && (
+                      <TabsTrigger value="videos" className="gap-2">
+                        <Video className="w-4 h-4" /> {L.videos}
+                      </TabsTrigger>
+                    )}
+                  </TabsList>
+
+                  {hasGallery && (
+                    <TabsContent value="images">
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {pkg.gallery!.map((src, i) => (
+                          <a key={i} href={src} target="_blank" rel="noopener noreferrer" className="block">
+                            <img
+                              src={src}
+                              alt={`${title} ${i + 1}`}
+                              className="w-full h-40 object-cover rounded-lg hover:opacity-90 transition"
+                              loading="lazy"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    </TabsContent>
+                  )}
+
+                  {hasVideos && (
+                    <TabsContent value="videos">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {pkg.videos!.map((url, i) => (
+                          <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-muted">
+                            <iframe
+                              src={toEmbed(url)}
+                              title={`Video ${i + 1}`}
+                              className="w-full h-full"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </TabsContent>
+                  )}
+                </Tabs>
               </div>
             </details>
           </Card>
