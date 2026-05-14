@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
-import BookingFormDialog from "@/components/BookingFormDialog";
 
 const HajjUmrahPage = () => {
   const { t, lang } = useLang();
   const { packages } = useCms();
   const hajjUmrahPackages = packages.filter((p) => p.category === "umrah" || p.category === "hajj");
-  const [bookingOpen, setBookingOpen] = useState(false);
-  const [selectedPkg, setSelectedPkg] = useState("");
 
   return (
     <div className="py-16">
