@@ -6,9 +6,10 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeft, Calendar, Tag, Bus, Building2, Utensils, Camera, Info,
-  FileText, PlayCircle, Shield, Users, ChefHat, BadgeCheck,
+  FileText, PlayCircle, Shield, Users, ChefHat, BadgeCheck, Images, Video,
 } from "lucide-react";
 import BookingFormDialog from "@/components/BookingFormDialog";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const toEmbed = (url: string) => {
   const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/);
