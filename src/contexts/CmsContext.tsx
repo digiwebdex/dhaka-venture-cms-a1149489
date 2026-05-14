@@ -157,9 +157,26 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
           setSeoSettings, setServices, setFooterContent, setContactCta,
         ];
         results.forEach((r, i) => {
-          if (r.status === "fulfilled" && r.value != null) {
-            (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(r.value);
+          if (r.status !== "fulfilled" || r.value == null) return;
+          let value: unknown = r.value;
+          // Backfill packages: merge stored entries with defaults so old DB rows
+          // automatically get gallery / videos / detail-table fields.
+          if (setters[i] === setPackages && Array.isArray(value)) {
+            const defaultsById = new Map(defaultPackages.map((p) => [p.id, p]));
+            value = (value as Package[]).map((p) => {
+              const def = defaultsById.get(p.id);
+              if (!def) return p;
+              const hasGallery = Array.isArray(p.gallery) && p.gallery.length > 0;
+              const hasVideos = Array.isArray(p.videos) && p.videos.length > 0;
+              return {
+                ...def,
+                ...p,
+                gallery: hasGallery ? p.gallery : def.gallery,
+                videos: hasVideos ? p.videos : def.videos,
+              };
+            });
           }
+          (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(value);
         });
       } catch (e) {
         console.warn("[cms] hydration failed, using cache/defaults:", e);
