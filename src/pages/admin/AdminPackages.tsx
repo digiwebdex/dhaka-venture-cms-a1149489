@@ -30,6 +30,30 @@ const AdminPackages = () => {
   const [form, setForm] = useState<Package>(emptyPkg);
   const [galleryInput, setGalleryInput] = useState("");
   const [videoInput, setVideoInput] = useState("");
+  const [uploading, setUploading] = useState<"main" | "gallery" | null>(null);
+  const mainFileRef = useRef<HTMLInputElement>(null);
+  const galleryFileRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async (file: File, target: "main" | "gallery") => {
+    if (!getAdminToken()) {
+      toast({ title: "Admin token missing", description: "Re-login with token to upload.", variant: "destructive" });
+      return;
+    }
+    setUploading(target);
+    try {
+      const res = await apiUpload(file);
+      if (target === "main") {
+        setForm((f) => ({ ...f, image: res.url }));
+      } else {
+        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), res.url] }));
+      }
+      toast({ title: "Image uploaded!" });
+    } catch (e: any) {
+      toast({ title: "Upload failed", description: e.message, variant: "destructive" });
+    } finally {
+      setUploading(null);
+    }
+  };
 
   const handleEdit = (pkg: Package) => {
     setEditing(pkg);
