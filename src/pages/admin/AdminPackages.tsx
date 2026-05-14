@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Package } from "@/data/defaultData";
-import { Trash2, Plus, X } from "lucide-react";
+import { Trash2, Plus, X, Upload, Loader2 } from "lucide-react";
+import { apiUpload, getAdminToken } from "@/lib/api";
 
 const AdminPackages = () => {
   const { t } = useLang();
@@ -29,6 +30,30 @@ const AdminPackages = () => {
   const [form, setForm] = useState<Package>(emptyPkg);
   const [galleryInput, setGalleryInput] = useState("");
   const [videoInput, setVideoInput] = useState("");
+  const [uploading, setUploading] = useState<"main" | "gallery" | null>(null);
+  const mainFileRef = useRef<HTMLInputElement>(null);
+  const galleryFileRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async (file: File, target: "main" | "gallery") => {
+    if (!getAdminToken()) {
+      toast({ title: "Admin token missing", description: "Re-login with token to upload.", variant: "destructive" });
+      return;
+    }
+    setUploading(target);
+    try {
+      const res = await apiUpload(file);
+      if (target === "main") {
+        setForm((f) => ({ ...f, image: res.url }));
+      } else {
+        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), res.url] }));
+      }
+      toast({ title: "Image uploaded!" });
+    } catch (e: any) {
+      toast({ title: "Upload failed", description: e.message, variant: "destructive" });
+    } finally {
+      setUploading(null);
+    }
+  };
 
   const handleEdit = (pkg: Package) => {
     setEditing(pkg);
@@ -84,7 +109,19 @@ const AdminPackages = () => {
             <Input placeholder="Duration (BN)" value={form.durationBn} onChange={(e) => setForm({ ...form, durationBn: e.target.value })} />
             <Input placeholder="Price (EN)" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             <Input placeholder="Price (BN)" value={form.priceBn} onChange={(e) => setForm({ ...form, priceBn: e.target.value })} />
-            <Input placeholder="Main Image URL" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} />
+            <div className="flex gap-2 md:col-span-1">
+              <Input placeholder="Main Image URL" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} />
+              <input
+                ref={mainFileRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "main"); e.target.value = ""; }}
+              />
+              <Button type="button" variant="outline" onClick={() => mainFileRef.current?.click()} disabled={uploading === "main"} title="Upload image">
+                {uploading === "main" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+              </Button>
+            </div>
             <Select value={form.category} onValueChange={(v: "umrah" | "tour" | "hajj") => setForm({ ...form, category: v })}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -119,10 +156,20 @@ const AdminPackages = () => {
         </div>
 
         <div>
-          <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">Gallery (Image URLs)</h4>
+          <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">Gallery (Image URLs or Upload)</h4>
           <div className="flex gap-2 mb-2">
-            <Input placeholder="https://..." value={galleryInput} onChange={(e) => setGalleryInput(e.target.value)} />
-            <Button type="button" onClick={addGalleryItem} variant="outline"><Plus className="w-4 h-4" /></Button>
+            <Input placeholder="https://... (or click upload)" value={galleryInput} onChange={(e) => setGalleryInput(e.target.value)} />
+            <Button type="button" onClick={addGalleryItem} variant="outline" title="Add URL"><Plus className="w-4 h-4" /></Button>
+            <input
+              ref={galleryFileRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "gallery"); e.target.value = ""; }}
+            />
+            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image">
+              {uploading === "gallery" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+            </Button>
           </div>
           <div className="flex flex-wrap gap-2">
             {(form.gallery || []).map((src, i) => (
