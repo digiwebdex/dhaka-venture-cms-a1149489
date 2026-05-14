@@ -34,20 +34,24 @@ const AdminPackages = () => {
   const mainFileRef = useRef<HTMLInputElement>(null);
   const galleryFileRef = useRef<HTMLInputElement>(null);
 
-  const handleUpload = async (file: File, target: "main" | "gallery") => {
+  const handleUpload = async (files: File[], target: "main" | "gallery") => {
     if (!getAdminToken()) {
       toast({ title: "Admin token missing", description: "Re-login with token to upload.", variant: "destructive" });
       return;
     }
+    if (!files.length) return;
     setUploading(target);
     try {
-      const res = await apiUpload(file);
       if (target === "main") {
+        const res = await apiUpload(files[0]);
         setForm((f) => ({ ...f, image: res.url }));
+        toast({ title: "Image uploaded!" });
       } else {
-        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), res.url] }));
+        const results = await Promise.all(files.map((f) => apiUpload(f)));
+        const urls = results.map((r) => r.url);
+        setForm((f) => ({ ...f, gallery: [...(f.gallery || []), ...urls] }));
+        toast({ title: `${urls.length} image(s) uploaded!` });
       }
-      toast({ title: "Image uploaded!" });
     } catch (e: any) {
       toast({ title: "Upload failed", description: e.message, variant: "destructive" });
     } finally {
