@@ -62,7 +62,9 @@ const AdminLayout = () => {
               <Input placeholder={t.admin.username} value={username} onChange={(e) => setUsername(e.target.value)} required />
               <Input type="password" placeholder={t.admin.password} value={password} onChange={(e) => setPassword(e.target.value)} required />
               {error && <p className="text-destructive text-sm">{error}</p>}
-              <Button type="submit" className="w-full bg-primary text-primary-foreground font-semibold h-11">{t.admin.login}</Button>
+              <Button type="submit" disabled={loggingIn} className="w-full bg-primary text-primary-foreground font-semibold h-11">
+                {loggingIn ? <Loader2 className="w-4 h-4 animate-spin" /> : t.admin.login}
+              </Button>
             </form>
           </CardContent>
         </Card>
