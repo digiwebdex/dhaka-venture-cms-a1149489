@@ -156,10 +156,20 @@ const AdminPackages = () => {
         </div>
 
         <div>
-          <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">Gallery (Image URLs)</h4>
+          <h4 className="font-semibold mb-2 text-sm uppercase text-muted-foreground">Gallery (Image URLs or Upload)</h4>
           <div className="flex gap-2 mb-2">
-            <Input placeholder="https://..." value={galleryInput} onChange={(e) => setGalleryInput(e.target.value)} />
-            <Button type="button" onClick={addGalleryItem} variant="outline"><Plus className="w-4 h-4" /></Button>
+            <Input placeholder="https://... (or click upload)" value={galleryInput} onChange={(e) => setGalleryInput(e.target.value)} />
+            <Button type="button" onClick={addGalleryItem} variant="outline" title="Add URL"><Plus className="w-4 h-4" /></Button>
+            <input
+              ref={galleryFileRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f, "gallery"); e.target.value = ""; }}
+            />
+            <Button type="button" variant="outline" onClick={() => galleryFileRef.current?.click()} disabled={uploading === "gallery"} title="Upload image">
+              {uploading === "gallery" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+            </Button>
           </div>
           <div className="flex flex-wrap gap-2">
             {(form.gallery || []).map((src, i) => (
