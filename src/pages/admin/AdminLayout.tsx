@@ -4,7 +4,8 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom } from "lucide-react";
+import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, KeyRound } from "lucide-react";
+import { getAdminToken, setAdminToken } from "@/lib/api";
 
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "primesky2025";
@@ -15,12 +16,14 @@ const AdminLayout = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [adminToken, setAdminTokenInput] = useState(() => getAdminToken());
   const [error, setError] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (username === ADMIN_USER && password === ADMIN_PASS) {
+      if (adminToken.trim()) setAdminToken(adminToken.trim());
       sessionStorage.setItem("admin_auth", "true");
       setAuthed(true);
       setError("");
