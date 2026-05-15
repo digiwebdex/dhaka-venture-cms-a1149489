@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Package } from "@/data/defaultData";
 import { Trash2, Plus, X, Upload, Loader2, GripVertical } from "lucide-react";
-import { apiUpload, getAdminToken, setAdminToken } from "@/lib/api";
+import { apiUpload, getAdminToken } from "@/lib/api";
 
 const AdminPackages = () => {
   const { t } = useLang();
