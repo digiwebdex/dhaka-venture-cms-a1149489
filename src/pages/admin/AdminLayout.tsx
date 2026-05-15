@@ -5,16 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, Loader2 } from "lucide-react";
-import { apiLogin, setAdminToken } from "@/lib/api";
-
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "primesky2025";
+import { apiLogin, setAdminToken, getAdminToken } from "@/lib/api";
 
 const AdminLayout = () => {
   const { t } = useLang();
   const location = useLocation();
-  const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true");
-  const [username, setUsername] = useState("");
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true" && !!getAdminToken());
+  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
@@ -22,24 +19,18 @@ const AdminLayout = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username !== ADMIN_USER || password !== ADMIN_PASS) {
-      setError("Invalid credentials");
-      return;
-    }
     setLoggingIn(true);
     setError("");
     try {
-      // Try server login to fetch real admin token (so uploads/CMS writes work)
       const res = await apiLogin(username, password);
-      if (res?.token) setAdminToken(res.token);
-    } catch (err: any) {
-      // Server login failed — still allow local UI access, but warn user
-      console.warn("Server login failed:", err?.message);
-      setError("Logged in locally, but server token fetch failed. Uploads may not work. Check ADMIN_PASS on the VPS.");
-    } finally {
-      setLoggingIn(false);
+      if (!res?.token) throw new Error("No token returned");
+      setAdminToken(res.token);
       sessionStorage.setItem("admin_auth", "true");
       setAuthed(true);
+    } catch (err: any) {
+      setError("ভুল ইউজারনেম বা পাসওয়ার্ড। VPS-এর ADMIN_USER / ADMIN_PASS দিয়ে চেষ্টা করুন।");
+    } finally {
+      setLoggingIn(false);
     }
   };
 
