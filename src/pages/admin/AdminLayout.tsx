@@ -10,8 +10,8 @@ import { apiLogin, setAdminToken, getAdminToken } from "@/lib/api";
 const AdminLayout = () => {
   const { t } = useLang();
   const location = useLocation();
-  const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true");
-  const [username, setUsername] = useState("");
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "true" && !!getAdminToken());
+  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
