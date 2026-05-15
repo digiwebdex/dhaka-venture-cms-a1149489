@@ -19,24 +19,18 @@ const AdminLayout = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username !== ADMIN_USER || password !== ADMIN_PASS) {
-      setError("Invalid credentials");
-      return;
-    }
     setLoggingIn(true);
     setError("");
     try {
-      // Try server login to fetch real admin token (so uploads/CMS writes work)
       const res = await apiLogin(username, password);
-      if (res?.token) setAdminToken(res.token);
-    } catch (err: any) {
-      // Server login failed — still allow local UI access, but warn user
-      console.warn("Server login failed:", err?.message);
-      setError("Logged in locally, but server token fetch failed. Uploads may not work. Check ADMIN_PASS on the VPS.");
-    } finally {
-      setLoggingIn(false);
+      if (!res?.token) throw new Error("No token returned");
+      setAdminToken(res.token);
       sessionStorage.setItem("admin_auth", "true");
       setAuthed(true);
+    } catch (err: any) {
+      setError("ভুল ইউজারনেম বা পাসওয়ার্ড। VPS-এর ADMIN_USER / ADMIN_PASS দিয়ে চেষ্টা করুন।");
+    } finally {
+      setLoggingIn(false);
     }
   };
 
