@@ -5,10 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { LayoutDashboard, FileText, Package, Globe, Settings, LogOut, BookOpen, Menu, Image, BarChart3, Plane, Star, Search, Layers, PanelBottom, Loader2 } from "lucide-react";
-import { apiLogin, setAdminToken } from "@/lib/api";
-
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "primesky2025";
+import { apiLogin, setAdminToken, getAdminToken } from "@/lib/api";
 
 const AdminLayout = () => {
   const { t } = useLang();
