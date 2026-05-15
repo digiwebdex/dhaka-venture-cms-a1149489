@@ -138,15 +138,17 @@ const PackageDetailPage = () => {
           </div>
         </div>
 
-        {/* Itinerary — always visible */}
+        {/* Itinerary — collapsible */}
         {tourDetails && (
           <Card className="mb-6 overflow-hidden">
-            <div className="flex items-center justify-center gap-2 py-4 px-5 text-primary font-semibold bg-muted/30">
-              <FileText className="w-5 h-5" /> {L.viewItinerary}
-            </div>
-            <div className="p-6 text-muted-foreground whitespace-pre-line leading-relaxed border-t border-border">
-              {tourDetails}
-            </div>
+            <details className="group">
+              <summary className="flex items-center justify-center gap-2 cursor-pointer py-4 px-5 text-primary font-semibold hover:bg-muted/50 list-none">
+                <FileText className="w-5 h-5" /> {L.viewItinerary}
+              </summary>
+              <div className="p-6 text-muted-foreground whitespace-pre-line leading-relaxed border-t border-border">
+                {tourDetails}
+              </div>
+            </details>
           </Card>
         )}
 
