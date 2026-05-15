@@ -144,9 +144,9 @@ app.get('/api/cms/:key', async (req, res) => {
 app.put('/api/cms/:key', requireAdmin, async (req, res) => {
   try {
     await pool.query(
-      `INSERT INTO cms_data (key, value) VALUES ($1,$2)
-       ON CONFLICT (key) DO UPDATE SET value=$2, updated_at=now()`,
-      [req.params.key, req.body]
+      `INSERT INTO cms_data (key, value) VALUES ($1,$2::jsonb)
+       ON CONFLICT (key) DO UPDATE SET value=$2::jsonb, updated_at=now()`,
+      [req.params.key, JSON.stringify(req.body)]
     );
     res.json({ ok: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
