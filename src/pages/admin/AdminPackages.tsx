@@ -142,12 +142,13 @@ const AdminPackages = () => {
                 {uploading === "main" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
               </Button>
             </div>
-            <Select value={form.category} onValueChange={(v: "umrah" | "tour" | "hajj") => setForm({ ...form, category: v })}>
+            <Select value={form.category} onValueChange={(v: "umrah" | "tour" | "hajj" | "hotel") => setForm({ ...form, category: v })}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="umrah">Umrah</SelectItem>
                 <SelectItem value="tour">Tour</SelectItem>
                 <SelectItem value="hajj">Hajj</SelectItem>
+                <SelectItem value="hotel">Hotel</SelectItem>
               </SelectContent>
             </Select>
             <Textarea placeholder="Short Description (EN)" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
