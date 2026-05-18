@@ -24,7 +24,7 @@ export interface Package {
   descriptionBn: string;
   image: string;
   featured: boolean;
-  category: "umrah" | "tour" | "hajj";
+  category: "umrah" | "tour" | "hajj" | "hotel";
   // Detail page fields (all optional — added per package via admin)
   time?: string;
   timeBn?: string;
