@@ -67,12 +67,25 @@ const AdminPackages = () => {
   const handleAdd = () => { setForm({ ...emptyPkg, id: Date.now().toString() }); setShowAdd(true); setEditing(null); };
 
   const handleSave = () => {
+    // Flush any unsubmitted gallery/video inputs so users don't lose URLs
+    // they pasted but forgot to click "+" on.
+    let next = form;
+    if (galleryInput.trim()) {
+      next = { ...next, gallery: [...(next.gallery || []), galleryInput.trim()] };
+      setGalleryInput("");
+    }
+    if (videoInput.trim()) {
+      next = { ...next, videos: [...(next.videos || []), videoInput.trim()] };
+      setVideoInput("");
+    }
+    setForm(next);
+
     if (showAdd) {
-      addPackage(form);
+      addPackage(next);
       toast({ title: "Package added!" });
       setShowAdd(false);
     } else if (editing) {
-      updatePackages(packages.map((p) => (p.id === form.id ? form : p)));
+      updatePackages(packages.map((p) => (p.id === next.id ? next : p)));
       toast({ title: "Package updated!" });
       setEditing(null);
     }
