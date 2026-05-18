@@ -9,10 +9,6 @@ import {
 } from "@/data/defaultData";
 import { cmsGet, cmsPut, getAdminToken } from "@/lib/api";
 
-// Default values mapped by cms key — used both as fallback and for auto-seeding
-// the VPS database the first time an admin logs in.
-const DEFAULTS: Record<string, unknown> = {};
-
 interface CmsContextType {
   settings: SiteSettings;
   pageContent: PageContent;
