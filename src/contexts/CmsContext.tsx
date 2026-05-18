@@ -160,16 +160,29 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
           setHeroSlides, setStats, setFlightRoutes, setUmrahOffer,
           setSeoSettings, setServices, setFooterContent, setContactCta,
         ];
+        const keys = [
+          KEYS.settings, KEYS.pageContent, KEYS.visaRates, KEYS.packages,
+          KEYS.heroSlides, KEYS.stats, KEYS.flightRoutes, KEYS.umrahOffer,
+          KEYS.seoSettings, KEYS.services, KEYS.footerContent, KEYS.contactCta,
+        ];
+        const defaults: unknown[] = [
+          defaultSettings, defaultPageContent, defaultVisaRates, defaultPackages,
+          defaultHeroSlides, defaultStats, defaultFlightRoutes, defaultUmrahOffer,
+          defaultSeoSettings, defaultServices, defaultFooterContent, defaultContactCta,
+        ];
+        const missingKeys: { key: string; value: unknown }[] = [];
         results.forEach((r, i) => {
-          if (r.status !== "fulfilled" || r.value == null) return;
-          let value: unknown = r.value;
+          const apiValue = r.status === "fulfilled" ? r.value : undefined;
+          if (apiValue == null) {
+            // Mark for seeding if admin is logged in
+            missingKeys.push({ key: keys[i], value: defaults[i] });
+            return;
+          }
+          let value: unknown = apiValue;
           // Backfill packages: merge stored entries with defaults so old DB rows
           // automatically get gallery / videos / detail-table fields.
           if (setters[i] === setPackages && Array.isArray(value)) {
             const defaultsById = new Map(defaultPackages.map((p) => [p.id, p]));
-            // Merge stored entries with defaults: only let stored fields override
-            // when they actually have content. Empty strings / empty arrays fall
-            // back to defaults so info-table rows are never blank.
             const pick = <T,>(stored: T, def: T): T => {
               if (stored === undefined || stored === null) return def;
               if (typeof stored === "string" && stored.trim() === "") return def;
@@ -188,6 +201,17 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
           }
           (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(value);
         });
+
+        // Auto-seed missing keys when admin is logged in, so the admin panel
+        // immediately shows all default sections and they persist on the VPS.
+        if (getAdminToken() && missingKeys.length > 0) {
+          console.log(`[cms] seeding ${missingKeys.length} default sections to VPS…`);
+          await Promise.allSettled(
+            missingKeys.map(({ key, value }) =>
+              cmsPut(key, value).catch((e) => console.warn(`[cms] seed ${key} failed:`, e.message)),
+            ),
+          );
+        }
       } catch (e) {
         console.warn("[cms] hydration failed, using cache/defaults:", e);
       } finally {
