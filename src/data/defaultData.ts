@@ -888,4 +888,8 @@ export const defaultPackages: Package[] = [
     sightSeen: "27 European Countries Access", sightSeenBn: "২৭টি ইউরোপীয় দেশে প্রবেশ",
     others: "Insurance, Sponsor Letter, Itinerary", othersBn: "ইন্স্যুরেন্স, স্পনসর লেটার, ভ্রমণসূচি",
     tourDetails: "Expert Schengen visa preparation covering France, Germany, Italy, Spain, Netherlands and 22 other countries. We help with travel insurance, accommodation booking, detailed itinerary, sponsor letter, financial documents and embassy appointment.",
-    tourDetailsBn: "ফ্রান্স, জার্মানি, ইতালি, স্পেন, নেদারল্যান্ডস সহ ২৭টি দেশের জন্য বিশেষজ্ঞ শেনজেন ভিসা প্রস্তুতি। ভ্রমণ ইন্স্যুরেন্স, আবাসন বুকিং, বিস্তারিত ভ্রমণসূ
+    tourDetailsBn: "ফ্রান্স, জার্মানি, ইতালি, স্পেন, নেদারল্যান্ডস সহ ২৭টি দেশের জন্য বিশেষজ্ঞ শেনজেন ভিসা প্রস্তুতি। ভ্রমণ ইন্স্যুরেন্স, আবাসন বুকিং, বিস্তারিত ভ্রমণসূচি, স্পনসর লেটার, আর্থিক ডকুমেন্ট ও দূতাবাস অ্যাপয়েন্টমেন্টে আমরা সহায়তা করি।",
+    gallery: [images.airplane],
+    videos: [],
+  },
+];
