@@ -176,7 +176,8 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
           }
           let value: unknown = apiValue;
           // Backfill packages: merge stored entries with defaults so old DB rows
-          // automatically get gallery / videos / detail-table fields.
+          // automatically get gallery / videos / detail-table fields, AND
+          // append any new default packages that aren't in the DB yet.
           if (setters[i] === setPackages && Array.isArray(value)) {
             const defaultsById = new Map(defaultPackages.map((p) => [p.id, p]));
             const pick = <T,>(stored: T, def: T): T => {
@@ -185,15 +186,26 @@ export const CmsProvider = ({ children }: { children: ReactNode }) => {
               if (Array.isArray(stored) && stored.length === 0) return def;
               return stored;
             };
-            value = (value as Package[]).map((p) => {
+            const merged = (value as Package[]).map((p) => {
               const def = defaultsById.get(p.id);
               if (!def) return p;
-              const merged: Package = { ...def, ...p };
+              const m: Package = { ...def, ...p };
               (Object.keys(def) as (keyof Package)[]).forEach((k) => {
-                (merged as any)[k] = pick((p as any)[k], (def as any)[k]);
+                (m as any)[k] = pick((p as any)[k], (def as any)[k]);
               });
-              return merged;
+              return m;
             });
+            const existingIds = new Set(merged.map((p) => p.id));
+            const newOnes = defaultPackages.filter((p) => !existingIds.has(p.id));
+            const finalList = [...merged, ...newOnes];
+            value = finalList;
+            // Persist appended packages back to VPS so admin sees them
+            if (newOnes.length > 0 && getAdminToken()) {
+              console.log(`[cms] appending ${newOnes.length} new default packages to VPS…`);
+              cmsPut(KEYS.packages, finalList).catch((e) =>
+                console.warn("[cms] append packages failed:", e.message),
+              );
+            }
           }
           (setters[i] as React.Dispatch<React.SetStateAction<unknown>>)(value);
         });
