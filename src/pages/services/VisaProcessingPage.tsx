@@ -4,13 +4,12 @@ import { useLang } from "@/contexts/LanguageContext";
 import { useCms } from "@/contexts/CmsContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FileCheck } from "lucide-react";
 import BookingFormDialog from "@/components/BookingFormDialog";
 
 const VisaProcessingPage = () => {
   const { t, lang } = useLang();
-  const { visaRates, packages } = useCms();
+  const { packages } = useCms();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPkg, setSelectedPkg] = useState("");
 
@@ -92,42 +91,6 @@ const VisaProcessingPage = () => {
           </div>
         )}
 
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              {lang === "bn" ? "সকল দেশের ভিসা রেট" : "All Country Visa Rates"}
-            </h2>
-            <p className="text-muted-foreground">
-              {lang === "bn" ? "আপডেটেড ভিসা ফি ও প্রসেসিং চার্জ" : "Updated visa fees and processing charges"}
-            </p>
-          </div>
-          <Card className="overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-primary">
-                  <TableHead className="text-primary-foreground font-bold">{t.visa.country}</TableHead>
-                  <TableHead className="text-primary-foreground font-bold">{t.visa.type}</TableHead>
-                  <TableHead className="text-primary-foreground font-bold text-right">{t.visa.rate}</TableHead>
-                  <TableHead className="text-primary-foreground font-bold text-center">{t.nav.bookNow}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {visaRates.map((visa, i) => (
-                  <TableRow key={visa.id} className={i % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-                    <TableCell className="font-medium">{lang === "bn" ? visa.countryBn : visa.country}</TableCell>
-                    <TableCell>{lang === "bn" ? visa.typeBn : visa.type}</TableCell>
-                    <TableCell className="text-right font-semibold text-primary">{lang === "bn" ? visa.rateBn : visa.rate}</TableCell>
-                    <TableCell className="text-center">
-                      <Button size="sm" variant="gold" onClick={() => openBooking(`Visa - ${lang === "bn" ? visa.countryBn : visa.country}`)}>
-                        {t.nav.bookNow}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-        </div>
       </div>
 
       <BookingFormDialog open={bookingOpen} onOpenChange={setBookingOpen} packageName={selectedPkg} />
